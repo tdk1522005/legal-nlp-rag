@@ -4,9 +4,9 @@ import json
 import os
 from pathlib import Path
 from typing import Any
-
+from datetime import date
 from dotenv import load_dotenv
-
+from validity.validity_resolver import ValidityResolver
 from context.context_builder import ContextBuilder
 from llm.gemini_llm import GeminiLLM
 from models.bge_embedding import BGEEmbedding
@@ -114,6 +114,125 @@ def print_sources(
     for citation in citations:
         print(f"- {citation}")
 
+def print_validity_report(
+    report: dict[str, Any],
+) -> None:
+    evaluations = report.get(
+        "law_evaluations",
+        {},
+    )
+
+    displayed = False
+
+    for evaluation in evaluations.values():
+        validity_state = evaluation.get(
+            "validity_state"
+        )
+
+        amending_laws = evaluation.get(
+            "amending_laws",
+            [],
+        )
+
+        replacements = evaluation.get(
+            "replacements",
+            [],
+        )
+
+        has_legal_change = (
+            validity_state != "effective"
+            or bool(amending_laws)
+            or bool(replacements)
+        )
+
+        if not has_legal_change:
+            continue
+
+        if not displayed:
+            print("\nTình trạng hiệu lực:")
+            displayed = True
+
+        title = (
+            evaluation.get("title")
+            or evaluation.get("law_id")
+        )
+
+        law_number = evaluation.get(
+            "law_number"
+        )
+
+        label = str(title)
+
+        if law_number:
+            label += f" ({law_number})"
+
+        print(
+            f"- {label}: "
+            f"{validity_state} "
+            f"tại ngày {evaluation['as_of']}"
+        )
+
+        for amendment in amending_laws:
+            amendment_title = (
+                amendment.get("title")
+                or amendment.get("law_id")
+            )
+
+            amendment_number = amendment.get(
+                "law_number"
+            )
+
+            text = (
+                f"  + Được sửa đổi bởi "
+                f"{amendment_title}"
+            )
+
+            if amendment_number:
+                text += (
+                    f" ({amendment_number})"
+                )
+
+            print(text)
+
+        for replacement in replacements:
+            if not replacement.get(
+                "is_effective"
+            ):
+                continue
+
+            replacement_title = (
+                replacement.get("title")
+                or replacement.get("law_id")
+            )
+
+            print(
+                "  + Văn bản thay thế: "
+                f"{replacement_title}"
+            )
+
+        for warning in evaluation.get(
+            "warnings",
+            [],
+        ):
+            print(f"  ! {warning}")
+
+    excluded_count = len(
+        report.get(
+            "excluded_results",
+            [],
+        )
+    )
+
+    if excluded_count:
+        if not displayed:
+            print("\nTình trạng hiệu lực:")
+
+        print(
+            "- Đã loại "
+            f"{excluded_count} kết quả "
+            "không còn hiệu lực."
+        )
+
 
 def main() -> None:
     load_dotenv(
@@ -195,6 +314,8 @@ def main() -> None:
 
     prompt_builder = PromptBuilder()
 
+    validity_resolver = ValidityResolver()
+
     llm = GeminiLLM(
         api_key=api_key
     )
@@ -236,10 +357,21 @@ def main() -> None:
             continue
 
         try:
-            results = retriever.retrieve(
+            raw_results = retriever.retrieve(
                 query=question,
                 top_k=TOP_K,
             )
+
+            validity_report = (
+                validity_resolver.resolve_results(
+                    raw_results,
+                    as_of=date.today(),
+                )
+            )
+
+            results = validity_report[
+                "valid_results"
+            ]
 
             if not results:
                 print(
@@ -276,6 +408,10 @@ def main() -> None:
             print("TRỢ LÝ")
             print("=" * 70)
             print(answer)
+
+            print_validity_report(
+                validity_report
+            )
 
             print_sources(results)
 
