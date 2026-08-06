@@ -1,4 +1,37 @@
-﻿__pycache__/
+﻿# Môi trường và bí mật
 .venv/
+venv/
 .env
-index/
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+
+# Dữ liệu luật gốc và file tải nhầm
+data/raw/
+data/legacy/
+
+# Dữ liệu được chương trình sinh ra
+data/chunks/
+data/parsed/
+data/index/
+data/embeddings/
+
+# File chẩn đoán
+*_diagnose.txt
+
+# Model và FAISS
+*.faiss
+*.index
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# IDE
+.idea/
+.vscode/
+
+# Backup files
+*.backup.json
+*.backup.py
