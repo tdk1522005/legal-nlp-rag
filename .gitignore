@@ -35,3 +35,5 @@ data/embeddings/
 # Backup files
 *.backup.json
 *.backup.py
+# Generated vector indexes
+index/
