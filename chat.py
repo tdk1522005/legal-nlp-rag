@@ -1,50 +1,52 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import os
 from pathlib import Path
 from typing import Any
-from datetime import date
+
 from dotenv import load_dotenv
-from validity.validity_resolver import ValidityResolver
+
 from context.context_builder import ContextBuilder
 from llm.gemini_llm import GeminiLLM
 from models.bge_embedding import BGEEmbedding
 from prompt.prompt_builder import PromptBuilder
 from retrieval.retriever import Retriever
+from retrieval.temporal_router import TemporalRetrievalRouter
+from temporal.query_date_resolver import QueryDateResolver
+from validity.validity_resolver import ValidityResolver
 from vectorstore.faiss_store import FaissStore
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 
-INDEX_DIR = (
+CURRENT_INDEX_DIR = (
     PROJECT_ROOT
     / "index"
     / "legal_dense"
 )
 
-INDEX_PATH = (
-    INDEX_DIR
-    / "legal_dense.index"
-)
-
-METADATA_PATH = (
-    INDEX_DIR
-    / "chunk_metadata.jsonl"
-)
-
-MANIFEST_PATH = (
-    INDEX_DIR
-    / "index_manifest.json"
+TEMPORAL_INDEX_DIR = (
+    PROJECT_ROOT
+    / "index"
+    / "legal_temporal"
 )
 
 TOP_K = 8
 CONTEXT_MAX_CHARS = 14000
 
+CURRENT_CANDIDATE_K = 100
+TEMPORAL_CANDIDATE_K = 1000
+
 
 def load_manifest(
-    path: Path,
+    index_dir: Path,
 ) -> dict[str, Any]:
+    path = (
+        index_dir
+        / "index_manifest.json"
+    )
+
     if not path.exists():
         raise FileNotFoundError(
             f"Không tìm thấy manifest: {path}"
@@ -52,7 +54,7 @@ def load_manifest(
 
     with path.open(
         "r",
-        encoding="utf-8",
+        encoding="utf-8-sig",
     ) as file:
         manifest = json.load(file)
 
@@ -63,8 +65,10 @@ def load_manifest(
         "vector_count",
     }
 
-    missing_fields = required_fields.difference(
-        manifest
+    missing_fields = (
+        required_fields.difference(
+            manifest
+        )
     )
 
     if missing_fields:
@@ -76,6 +80,92 @@ def load_manifest(
         )
 
     return manifest
+
+
+def validate_manifest_compatibility(
+    current_manifest: dict[str, Any],
+    temporal_manifest: dict[str, Any],
+) -> None:
+    fields = (
+        "model_name",
+        "dimension",
+        "max_length",
+    )
+
+    for field in fields:
+        current_value = (
+            current_manifest.get(field)
+        )
+
+        temporal_value = (
+            temporal_manifest.get(field)
+        )
+
+        if current_value != temporal_value:
+            raise RuntimeError(
+                "Hai index không tương thích tại "
+                f"trường {field}: "
+                f"{current_value} != "
+                f"{temporal_value}"
+            )
+
+
+def load_vector_store(
+    index_dir: Path,
+    manifest: dict[str, Any],
+) -> FaissStore:
+    files = dict(
+        manifest.get("files", {})
+        or {}
+    )
+
+    index_path = (
+        index_dir
+        / str(
+            files.get(
+                "index",
+                "legal_dense.index",
+            )
+        )
+    )
+
+    metadata_path = (
+        index_dir
+        / str(
+            files.get(
+                "metadata",
+                "chunk_metadata.jsonl",
+            )
+        )
+    )
+
+    vector_store = FaissStore(
+        dimension=int(
+            manifest["dimension"]
+        )
+    )
+
+    vector_store.load(
+        index_path=index_path,
+        metadata_path=metadata_path,
+    )
+
+    loaded_count = len(
+        vector_store.documents
+    )
+
+    expected_count = int(
+        manifest["vector_count"]
+    )
+
+    if loaded_count != expected_count:
+        raise RuntimeError(
+            "Số metadata đã tải không khớp "
+            f"manifest: {loaded_count} != "
+            f"{expected_count}"
+        )
+
+    return vector_store
 
 
 def print_sources(
@@ -113,6 +203,36 @@ def print_sources(
 
     for citation in citations:
         print(f"- {citation}")
+
+
+def print_temporal_report(
+    route_output: dict[str, Any],
+) -> None:
+    resolution = route_output[
+        "date_resolution"
+    ]
+
+    print("\nThời điểm pháp lý:")
+    print(
+        "- Ngày áp dụng: "
+        f"{route_output['as_of'].isoformat()}"
+    )
+    print(
+        "- Chỉ mục được sử dụng: "
+        f"{route_output['index_name']}"
+    )
+
+    if resolution.matched_text:
+        print(
+            "- Cụm thời gian nhận diện: "
+            f"{resolution.matched_text}"
+        )
+
+    if resolution.warning:
+        print(
+            f"- Lưu ý: {resolution.warning}"
+        )
+
 
 def print_validity_report(
     report: dict[str, Any],
@@ -178,12 +298,12 @@ def print_validity_report(
                 or amendment.get("law_id")
             )
 
-            amendment_number = amendment.get(
-                "law_number"
+            amendment_number = (
+                amendment.get("law_number")
             )
 
             text = (
-                f"  + Được sửa đổi bởi "
+                "  + Được sửa đổi bởi "
                 f"{amendment_title}"
             )
 
@@ -253,58 +373,99 @@ def main() -> None:
     print("KHỞI ĐỘNG LEGAL RAG CHATBOT")
     print("=" * 70)
 
-    print("Đang đọc index manifest...")
+    print(
+        "Đang đọc current index manifest..."
+    )
 
-    manifest = load_manifest(
-        MANIFEST_PATH
+    current_manifest = load_manifest(
+        CURRENT_INDEX_DIR
+    )
+
+    print(
+        "Đang đọc temporal index manifest..."
+    )
+
+    temporal_manifest = load_manifest(
+        TEMPORAL_INDEX_DIR
+    )
+
+    validate_manifest_compatibility(
+        current_manifest,
+        temporal_manifest,
     )
 
     print(
         "Đang tải BGE-M3 "
-        f"({manifest['model_name']})..."
+        f"({current_manifest['model_name']})..."
     )
 
     embedding_model = BGEEmbedding(
         model_name=str(
-            manifest["model_name"]
+            current_manifest[
+                "model_name"
+            ]
         ),
         use_fp16=False,
         batch_size=1,
         max_length=int(
-            manifest["max_length"]
+            current_manifest[
+                "max_length"
+            ]
         ),
     )
 
-    print("Đang tải FAISS index...")
-
-    vector_store = FaissStore(
-        dimension=int(
-            manifest["dimension"]
-        )
+    print(
+        "Đang tải current FAISS index..."
     )
 
-    vector_store.load(
-        index_path=INDEX_PATH,
-        metadata_path=METADATA_PATH,
+    current_store = load_vector_store(
+        CURRENT_INDEX_DIR,
+        current_manifest,
     )
 
-    loaded_count = len(
-        vector_store.documents
+    print(
+        "Đang tải temporal FAISS index..."
     )
 
-    expected_count = int(
-        manifest["vector_count"]
+    temporal_store = load_vector_store(
+        TEMPORAL_INDEX_DIR,
+        temporal_manifest,
     )
 
-    if loaded_count != expected_count:
-        raise RuntimeError(
-            "Số metadata đã tải không khớp manifest: "
-            f"{loaded_count} != {expected_count}"
-        )
-
-    retriever = Retriever(
+    current_retriever = Retriever(
         embedding_model=embedding_model,
-        vector_store=vector_store,
+        vector_store=current_store,
+    )
+
+    temporal_retriever = Retriever(
+        embedding_model=embedding_model,
+        vector_store=temporal_store,
+    )
+
+    validity_resolver = ValidityResolver()
+    query_date_resolver = QueryDateResolver()
+
+    temporal_router = (
+        TemporalRetrievalRouter(
+            current_retriever=(
+                current_retriever
+            ),
+            temporal_retriever=(
+                temporal_retriever
+            ),
+            validity_resolver=(
+                validity_resolver
+            ),
+            query_date_resolver=(
+                query_date_resolver
+            ),
+            current_candidate_k=(
+                CURRENT_CANDIDATE_K
+            ),
+            temporal_candidate_k=(
+                TEMPORAL_CANDIDATE_K
+            ),
+        )
     )
 
     context_builder = ContextBuilder(
@@ -314,15 +475,26 @@ def main() -> None:
 
     prompt_builder = PromptBuilder()
 
-    validity_resolver = ValidityResolver()
-
     llm = GeminiLLM(
         api_key=api_key
     )
 
+    current_count = len(
+        current_store.documents
+    )
+
+    temporal_count = len(
+        temporal_store.documents
+    )
+
     print("-" * 70)
     print(
-        f"Đã tải {loaded_count} legal chunk."
+        "Đã tải current index: "
+        f"{current_count} legal chunk."
+    )
+    print(
+        "Đã tải temporal index: "
+        f"{temporal_count} legal chunk."
     )
     print("Chatbot đã sẵn sàng.")
     print(
@@ -357,26 +529,33 @@ def main() -> None:
             continue
 
         try:
-            raw_results = retriever.retrieve(
-                query=question,
-                top_k=TOP_K,
-            )
-
-            validity_report = (
-                validity_resolver.resolve_results(
-                    raw_results,
-                    as_of=date.today(),
+            route_output = (
+                temporal_router.retrieve(
+                    query=question,
+                    top_k=TOP_K,
                 )
             )
 
-            results = validity_report[
-                "valid_results"
+            results = route_output[
+                "results"
             ]
 
+            validity_report = (
+                route_output[
+                    "validity_report"
+                ]
+            )
+
             if not results:
+                print_temporal_report(
+                    route_output
+                )
+
                 print(
                     "\nTrợ lý: "
-                    "Không tìm thấy tài liệu phù hợp."
+                    "Không tìm thấy tài liệu "
+                    "có hiệu lực phù hợp với "
+                    "thời điểm được hỏi."
                 )
                 continue
 
@@ -392,8 +571,14 @@ def main() -> None:
                 )
                 continue
 
+            temporal_question = (
+                f"{question}\n\n"
+                "Thời điểm pháp lý cần áp dụng: "
+                f"{route_output['as_of'].isoformat()}."
+            )
+
             prompt = prompt_builder.build(
-                question=question,
+                question=temporal_question,
                 context=context,
             )
 
@@ -408,6 +593,10 @@ def main() -> None:
             print("TRỢ LÝ")
             print("=" * 70)
             print(answer)
+
+            print_temporal_report(
+                route_output
+            )
 
             print_validity_report(
                 validity_report

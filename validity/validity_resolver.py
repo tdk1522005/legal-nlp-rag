@@ -556,6 +556,78 @@ class ValidityResolver:
             "warnings": warnings,
         }
 
+    def get_effective_law_ids(
+        self,
+        *,
+        as_of: str | date | datetime | None = None,
+        require_retrieval_files: bool = True,
+        include_amendments: bool = False,
+    ) -> list[str]:
+        """
+        Trả về các law_id có hiệu lực tại thời điểm tra cứu.
+
+        Mặc định chỉ dùng:
+        - Văn bản chính: PRIMARY.
+        - Văn bản lịch sử còn hiệu lực tại thời điểm hỏi:
+        HISTORICAL.
+
+        Văn bản AMENDMENT không được retrieval mặc định vì
+        nội dung sửa đổi thường đã được cập nhật trong văn bản
+        hợp nhất. Chỉ bật include_amendments khi người dùng hỏi
+        trực tiếp về văn bản sửa đổi.
+        """
+        query_date = self.parse_date(
+            as_of,
+            default_today=True,
+            field_name="as_of",
+        )
+
+        if query_date is None:
+            raise RuntimeError(
+                "Không xác định được ngày tra cứu."
+            )
+
+        effective_law_ids: list[str] = []
+
+        for (
+            law_id,
+            metadata,
+        ) in self.law_graph.graph.nodes(
+            data=True
+        ):
+            law = dict(metadata)
+            law["law_id"] = str(law_id)
+
+            if (
+                require_retrieval_files
+                and not law.get("retrieval_files")
+            ):
+                continue
+
+            document_role = str(
+                law.get("document_role", "")
+            ).strip().upper()
+
+            if (
+                document_role == "AMENDMENT"
+                and not include_amendments
+            ):
+                continue
+
+            evaluation = self._evaluate_metadata(
+                law,
+                query_date,
+            )
+
+            if not evaluation["is_effective"]:
+                continue
+
+            effective_law_ids.append(
+                str(law_id)
+            )
+
+        return sorted(effective_law_ids)
+
     def resolve_results(
         self,
         results: list[dict[str, Any]],
