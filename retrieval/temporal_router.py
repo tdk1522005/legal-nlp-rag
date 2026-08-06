@@ -1,7 +1,10 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from typing import Any
 
+from retrieval.exact_reference import (
+    resolve_exact_legal_reference,
+)
 from temporal.query_date_resolver import (
     QueryDateResolver,
 )
@@ -137,10 +140,103 @@ class TemporalRetrievalRouter:
 
             index_name = "legal_dense"
 
-        if not effective_law_ids:
-            raw_results: list[
-                dict[str, Any]
-            ] = []
+        exact_reference = (
+            resolve_exact_legal_reference(
+                clean_query
+            )
+        )
+
+        exact_results: list[
+            dict[str, Any]
+        ] = []
+
+        if (
+            exact_reference is not None
+            and exact_reference.law_id
+            in effective_law_ids
+        ):
+            documents = getattr(
+                selected_retriever.vector_store,
+                "documents",
+                [],
+            )
+
+            for index_position, document in enumerate(
+                documents
+            ):
+                law_id = str(
+                    document.get(
+                        "law_id",
+                        "",
+                    )
+                )
+
+                article_number = str(
+                    document.get(
+                        "article_number",
+                        "",
+                    )
+                )
+
+                if (
+                    law_id
+                    != exact_reference.law_id
+                ):
+                    continue
+
+                if (
+                    article_number
+                    != exact_reference.article_number
+                ):
+                    continue
+
+                document_text = str(
+                    document.get(
+                        "text",
+                        "",
+                    )
+                ).strip()
+
+                if not document_text:
+                    continue
+
+                metadata = {
+                    key: value
+                    for key, value
+                    in document.items()
+                    if key != "text"
+                }
+
+                exact_results.append(
+                    {
+                        "text": document_text,
+                        "metadata": metadata,
+                        "score": None,
+                        "faiss_id": (
+                            index_position
+                        ),
+                        "rank": (
+                            len(exact_results)
+                            + 1
+                        ),
+                    }
+                )
+
+                if (
+                    len(exact_results)
+                    >= top_k
+                ):
+                    break
+
+        if exact_results:
+            raw_results = exact_results
+            retrieval_mode = (
+                "exact_reference"
+            )
+
+        elif not effective_law_ids:
+            raw_results = []
+            retrieval_mode = "semantic"
 
         else:
             raw_results = (
@@ -155,6 +251,8 @@ class TemporalRetrievalRouter:
                     candidate_k=candidate_k,
                 )
             )
+
+            retrieval_mode = "semantic"
 
         validity_report = (
             self.validity_resolver
@@ -173,6 +271,12 @@ class TemporalRetrievalRouter:
                 date_resolution
             ),
             "index_name": index_name,
+            "retrieval_mode": (
+                retrieval_mode
+            ),
+            "exact_reference": (
+                exact_reference
+            ),
             "effective_law_ids": (
                 effective_law_ids
             ),
