@@ -1,15 +1,15 @@
-﻿{
+{
   "schema_version": "2.0",
   "last_updated": "2026-08-06",
   "laws": [
     {
       "law_id": "civil_code_2015",
-      "title": "Bá»™ luáº­t DĂ¢n sá»± 2015",
+      "title": "Bộ luật Dân sự 2015",
       "short_title": "BLDS 2015",
       "law_number": "91/2015/QH13",
-      "document_type": "Bdá»™ luáº­t",
+      "document_type": "Bộ luật",
       "document_role": "PRIMARY",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2015-11-24",
       "effective_from": "2017-01-01",
       "effective_to": null,
@@ -19,14 +19,14 @@
         "civil_law"
       ],
       "topics": [
-        "giao dá»‹ch dĂ¢n sá»±",
-        "há»£p Ä‘á»“ng",
-        "quyá»n sá»Ÿ há»¯u",
-        "nghÄ©a vá»¥ dĂ¢n sá»±",
-        "thá»«a káº¿",
-        "bá»“i thÆ°á»ng thiá»‡t háº¡i",
-        "phĂ¡p nhĂ¢n",
-        "Ä‘áº¡i diá»‡n"
+        "giao dịch dân sự",
+        "hợp đồng",
+        "quyền sở hữu",
+        "nghĩa vụ dân sự",
+        "thừa kế",
+        "bồi thường thiệt hại",
+        "pháp nhân",
+        "đại diện"
       ],
       "is_primary": true,
       "default_retrieval": true,
@@ -40,16 +40,16 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=95942",
       "status_checked_at": "2026-08-06",
-      "notes": "VÄƒn báº£n trung tĂ¢m cá»§a chatbot phĂ¡p luáº­t dĂ¢n sá»±."
+      "notes": "Văn bản trung tâm của chatbot pháp luật dân sự."
     },
     {
       "law_id": "civil_code_2005",
-      "title": "Bá»™ luáº­t DĂ¢n sá»± 2005",
+      "title": "Bộ luật Dân sự 2005",
       "short_title": "BLDS 2005",
       "law_number": "33/2005/QH11",
-      "document_type": "Bá»™ luáº­t",
+      "document_type": "Bộ luật",
       "document_role": "HISTORICAL",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2005-06-14",
       "effective_from": "2006-01-01",
       "effective_to": "2017-01-01",
@@ -59,11 +59,11 @@
         "civil_law"
       ],
       "topics": [
-        "giao dá»‹ch dĂ¢n sá»±",
-        "há»£p Ä‘á»“ng",
-        "quyá»n sá»Ÿ há»¯u",
-        "nghÄ©a vá»¥ dĂ¢n sá»±",
-        "thá»«a káº¿"
+        "giao dịch dân sự",
+        "hợp đồng",
+        "quyền sở hữu",
+        "nghĩa vụ dân sự",
+        "thừa kế"
       ],
       "is_primary": false,
       "default_retrieval": false,
@@ -77,16 +77,16 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=18128",
       "status_checked_at": "2026-08-06",
-      "notes": "Chá»‰ dĂ¹ng khi ngÆ°á»i dĂ¹ng há»i quy Ä‘á»‹nh lá»‹ch sá»­ hoáº·c nĂªu trá»±c tiáº¿p Bá»™ luáº­t DĂ¢n sá»± 2005."
+      "notes": "Chỉ dùng khi người dùng hỏi quy định lịch sử hoặc nêu trực tiếp Bộ luật Dân sự 2005."
     },
     {
       "law_id": "civil_procedure_code_2015",
-      "title": "Bá»™ luáº­t Tá»‘ tá»¥ng dĂ¢n sá»± 2015",
+      "title": "Bộ luật Tố tụng dân sự 2015",
       "short_title": "BLTTDS 2015",
       "law_number": "92/2015/QH13",
-      "document_type": "Bá»™ luáº­t",
+      "document_type": "Bộ luật",
       "document_role": "PRIMARY",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2015-11-25",
       "effective_from": "2016-07-01",
       "effective_to": null,
@@ -96,12 +96,12 @@
         "civil_procedure"
       ],
       "topics": [
-        "khá»Ÿi kiá»‡n",
-        "tĂ²a Ă¡n",
-        "tranh cháº¥p dĂ¢n sá»±",
-        "chá»©ng cá»©",
-        "thá»i hiá»‡u",
-        "thi hĂ nh báº£n Ă¡n"
+        "khởi kiện",
+        "tòa án",
+        "tranh chấp dân sự",
+        "chứng cứ",
+        "thời hiệu",
+        "thi hành bản án"
       ],
       "is_primary": false,
       "default_retrieval": true,
@@ -115,16 +115,16 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/TW/Pages/ivbpq-thuoctinh.aspx?ItemID=96115",
       "status_checked_at": "2026-08-06",
-      "notes": "Äang dĂ¹ng táº¡m vÄƒn báº£n gá»‘c. Sau nĂ y cáº§n Æ°u tiĂªn vÄƒn báº£n há»£p nháº¥t má»›i nháº¥t."
+      "notes": "Đang dùng tạm văn bản gốc. Sau này cần ưu tiên văn bản hợp nhất mới nhất."
     },
     {
       "law_id": "marriage_family_law_2014",
-      "title": "Luáº­t HĂ´n nhĂ¢n vĂ  Gia Ä‘Ă¬nh 2014",
-      "short_title": "Luáº­t HN&GÄ 2014",
+      "title": "Luật Hôn nhân và Gia đình 2014",
+      "short_title": "Luật HN&GĐ 2014",
       "law_number": "52/2014/QH13",
-      "document_type": "Luáº­t",
+      "document_type": "Luật",
       "document_role": "PRIMARY",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2014-06-19",
       "effective_from": "2015-01-01",
       "effective_to": null,
@@ -134,11 +134,11 @@
         "marriage_family"
       ],
       "topics": [
-        "káº¿t hĂ´n",
-        "ly hĂ´n",
-        "tĂ i sáº£n vá»£ chá»“ng",
-        "nghÄ©a vá»¥ cáº¥p dÆ°á»¡ng",
-        "quan há»‡ cha máº¹ con"
+        "kết hôn",
+        "ly hôn",
+        "tài sản vợ chồng",
+        "nghĩa vụ cấp dưỡng",
+        "quan hệ cha mẹ con"
       ],
       "is_primary": false,
       "default_retrieval": true,
@@ -152,16 +152,16 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=36870",
       "status_checked_at": "2026-08-06",
-      "notes": "Luáº­t chuyĂªn ngĂ nh liĂªn quan Ä‘áº¿n quan há»‡ nhĂ¢n thĂ¢n vĂ  tĂ i sáº£n trong gia Ä‘Ă¬nh."
+      "notes": "Luật chuyên ngành liên quan đến quan hệ nhân thân và tài sản trong gia đình."
     },
     {
       "law_id": "land_law_2024",
-      "title": "Luáº­t Äáº¥t Ä‘ai 2024",
-      "short_title": "Luáº­t Äáº¥t Ä‘ai 2024",
+      "title": "Luật Đất đai 2024",
+      "short_title": "Luật Đất đai 2024",
       "law_number": "31/2024/QH15",
-      "document_type": "Luáº­t",
+      "document_type": "Luật",
       "document_role": "PRIMARY",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2024-01-18",
       "effective_from": "2025-01-01",
       "effective_to": null,
@@ -171,11 +171,11 @@
         "land"
       ],
       "topics": [
-        "quyá»n sá»­ dá»¥ng Ä‘áº¥t",
-        "chuyá»ƒn nhÆ°á»£ng Ä‘áº¥t",
-        "tháº¿ cháº¥p quyá»n sá»­ dá»¥ng Ä‘áº¥t",
-        "thá»«a káº¿ quyá»n sá»­ dá»¥ng Ä‘áº¥t",
-        "thu há»“i Ä‘áº¥t"
+        "quyền sử dụng đất",
+        "chuyển nhượng đất",
+        "thế chấp quyền sử dụng đất",
+        "thừa kế quyền sử dụng đất",
+        "thu hồi đất"
       ],
       "is_primary": false,
       "default_retrieval": true,
@@ -193,22 +193,22 @@
       },
       "special_effective_dates": [
         {
-          "scope": "Äiá»u 190 vĂ  Äiá»u 248",
+          "scope": "Điều 190 và Điều 248",
           "effective_from": "2024-04-01"
         }
       ],
       "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=177815",
       "status_checked_at": "2026-08-06",
-      "notes": "Æ¯u tiĂªn vÄƒn báº£n há»£p nháº¥t khi retrieval."
+      "notes": "Ưu tiên văn bản hợp nhất khi retrieval."
     },
     {
       "law_id": "housing_law_2023",
-      "title": "Luáº­t NhĂ  á»Ÿ 2023",
-      "short_title": "Luáº­t NhĂ  á»Ÿ 2023",
+      "title": "Luật Nhà ở 2023",
+      "short_title": "Luật Nhà ở 2023",
       "law_number": "27/2023/QH15",
-      "document_type": "Luáº­t",
+      "document_type": "Luật",
       "document_role": "PRIMARY",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2023-11-27",
       "effective_from": "2024-08-01",
       "effective_to": null,
@@ -218,11 +218,11 @@
         "housing"
       ],
       "topics": [
-        "quyá»n sá»Ÿ há»¯u nhĂ  á»Ÿ",
-        "mua bĂ¡n nhĂ  á»Ÿ",
-        "thuĂª nhĂ  á»Ÿ",
-        "nhĂ  á»Ÿ xĂ£ há»™i",
-        "quáº£n lĂ½ chung cÆ°"
+        "quyền sở hữu nhà ở",
+        "mua bán nhà ở",
+        "thuê nhà ở",
+        "nhà ở xã hội",
+        "quản lý chung cư"
       ],
       "is_primary": false,
       "default_retrieval": true,
@@ -241,16 +241,16 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/TW/Pages/ivbpq-thuoctinh.aspx?ItemID=169032",
       "status_checked_at": "2026-08-06",
-      "notes": "Æ¯u tiĂªn vÄƒn báº£n há»£p nháº¥t 14/VBHN-VPQH khi retrieval."
+      "notes": "Ưu tiên văn bản hợp nhất 14/VBHN-VPQH khi retrieval."
     },
     {
       "law_id": "real_estate_business_law_2023",
-      "title": "Luáº­t Kinh doanh báº¥t Ä‘á»™ng sáº£n 2023",
-      "short_title": "Luáº­t Kinh doanh BÄS 2023",
+      "title": "Luật Kinh doanh bất động sản 2023",
+      "short_title": "Luật Kinh doanh BĐS 2023",
       "law_number": "29/2023/QH15",
-      "document_type": "Luáº­t",
+      "document_type": "Luật",
       "document_role": "PRIMARY",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2023-11-28",
       "effective_from": "2024-08-01",
       "effective_to": null,
@@ -260,10 +260,10 @@
         "real_estate_business"
       ],
       "topics": [
-        "kinh doanh báº¥t Ä‘á»™ng sáº£n",
-        "mua bĂ¡n báº¥t Ä‘á»™ng sáº£n",
-        "chuyá»ƒn nhÆ°á»£ng dá»± Ă¡n",
-        "há»£p Ä‘á»“ng báº¥t Ä‘á»™ng sáº£n"
+        "kinh doanh bất động sản",
+        "mua bán bất động sản",
+        "chuyển nhượng dự án",
+        "hợp đồng bất động sản"
       ],
       "is_primary": false,
       "default_retrieval": true,
@@ -282,16 +282,16 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/TW/Pages/ivbpq-thuoctinh.aspx?ItemID=169027",
       "status_checked_at": "2026-08-06",
-      "notes": "Æ¯u tiĂªn vÄƒn báº£n há»£p nháº¥t 06/VBHN-VPQH khi retrieval."
+      "notes": "Ưu tiên văn bản hợp nhất 06/VBHN-VPQH khi retrieval."
     },
     {
       "law_id": "notary_law_2024",
-      "title": "Luáº­t CĂ´ng chá»©ng 2024",
-      "short_title": "Luáº­t CĂ´ng chá»©ng 2024",
+      "title": "Luật Công chứng 2024",
+      "short_title": "Luật Công chứng 2024",
       "law_number": "46/2024/QH15",
-      "document_type": "Luáº­t",
+      "document_type": "Luật",
       "document_role": "PRIMARY",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2024-11-26",
       "effective_from": "2025-07-01",
       "effective_to": null,
@@ -301,10 +301,10 @@
         "notary"
       ],
       "topics": [
-        "cĂ´ng chá»©ng há»£p Ä‘á»“ng",
-        "cĂ´ng chá»©ng giao dá»‹ch",
-        "vÄƒn báº£n cĂ´ng chá»©ng",
-        "cĂ´ng chá»©ng viĂªn"
+        "công chứng hợp đồng",
+        "công chứng giao dịch",
+        "văn bản công chứng",
+        "công chứng viên"
       ],
       "is_primary": false,
       "default_retrieval": true,
@@ -318,16 +318,16 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/botuphap/Pages/vbpq-thuoctinh.aspx?ItemID=172799",
       "status_checked_at": "2026-08-06",
-      "notes": "LiĂªn quan Ä‘áº¿n hĂ¬nh thá»©c vĂ  cĂ´ng chá»©ng cĂ¡c há»£p Ä‘á»“ng, giao dá»‹ch dĂ¢n sá»±."
+      "notes": "Liên quan đến hình thức và công chứng các hợp đồng, giao dịch dân sự."
     },
     {
       "law_id": "amend_land_housing_real_estate_2024",
-      "title": "Luáº­t sá»­a Ä‘á»•i, bá»• sung má»™t sá»‘ Ä‘iá»u cá»§a Luáº­t Äáº¥t Ä‘ai, Luáº­t NhĂ  á»Ÿ, Luáº­t Kinh doanh báº¥t Ä‘á»™ng sáº£n vĂ  Luáº­t CĂ¡c tá»• chá»©c tĂ­n dá»¥ng 2024",
-      "short_title": "Luáº­t 43/2024/QH15",
+      "title": "Luật sửa đổi, bổ sung một số điều của Luật Đất đai, Luật Nhà ở, Luật Kinh doanh bất động sản và Luật Các tổ chức tín dụng 2024",
+      "short_title": "Luật 43/2024/QH15",
       "law_number": "43/2024/QH15",
-      "document_type": "Luáº­t",
+      "document_type": "Luật",
       "document_role": "AMENDMENT",
-      "issuer": "Quá»‘c há»™i",
+      "issuer": "Quốc hội",
       "issued_date": "2024-06-29",
       "effective_from": "2024-08-01",
       "effective_to": null,
@@ -340,11 +340,11 @@
         "banking"
       ],
       "topics": [
-        "sá»­a Ä‘á»•i luáº­t",
-        "hiá»‡u lá»±c thi hĂ nh",
-        "Ä‘áº¥t Ä‘ai",
-        "nhĂ  á»Ÿ",
-        "kinh doanh báº¥t Ä‘á»™ng sáº£n"
+        "sửa đổi luật",
+        "hiệu lực thi hành",
+        "đất đai",
+        "nhà ở",
+        "kinh doanh bất động sản"
       ],
       "is_primary": false,
       "default_retrieval": false,
@@ -358,8 +358,7 @@
       "special_effective_dates": [],
       "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=170509",
       "status_checked_at": "2026-08-06",
-      "notes": "DĂ¹ng Ä‘á»ƒ giáº£i thĂ­ch lá»‹ch sá»­ sá»­a Ä‘á»•i; cĂ¢u há»i hiá»‡n hĂ nh Æ°u tiĂªn cĂ¡c vÄƒn báº£n há»£p nháº¥t."
+      "notes": "Dùng để giải thích lịch sử sửa đổi; câu hỏi hiện hành ưu tiên các văn bản hợp nhất."
     }
   ]
 }
-
