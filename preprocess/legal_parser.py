@@ -21,14 +21,7 @@ class LegalDocxParser:
                             CLAUSE
                                 POINT
 
-    Parser có thêm hai cơ chế bảo vệ:
-
-    1. Nội dung nằm trong dấu ngoặc kép tiếng Việt “...” được giữ dưới
-       dạng TEXT. Các số thứ tự bên trong đoạn trích dẫn không được nhận
-       nhầm thành Điều, Khoản hoặc Điểm của văn bản đang phân tích.
-
-    2. Phần chú thích cuối văn bản, thường bắt đầu bằng [1], [2], ...
-       được tách riêng khỏi cây pháp luật chính.
+    
     """
 
     PART_PATTERN = re.compile(
@@ -65,10 +58,7 @@ class LegalDocxParser:
         r"^\s*([a-zA-ZđĐ])\)\s*(.+)$",
     )
 
-    # Ví dụ:
-    #   Điều 58 của Luật Quy hoạch đô thị và nông thôn ...
-    # Đây là câu dẫn chiếu đến văn bản khác, không phải tiêu đề Điều
-    # của văn bản đang được parse.
+  
     ARTICLE_REFERENCE_PATTERN = re.compile(
         r"^\s*Điều\s+\d+[a-zA-Z]?"
         r"\s+của\s+"
@@ -77,8 +67,7 @@ class LegalDocxParser:
         flags=re.IGNORECASE,
     )
 
-    # Các văn bản hợp nhất thường đặt toàn bộ chú thích ở cuối file.
-    # Chú thích bắt đầu bằng [1], [2], [25], ...
+
     ENDNOTE_PATTERN = re.compile(
         r"^\s*\[\d+\](?:\s|$)",
     )
@@ -149,8 +138,6 @@ class LegalDocxParser:
         Trả về True khi paragraph chỉ đang dẫn chiếu đến Điều của
         một văn bản khác.
 
-        Ví dụ:
-            Điều 58 của Luật Quy hoạch đô thị và nông thôn ...
         """
         return bool(
             cls.ARTICLE_REFERENCE_PATTERN.match(

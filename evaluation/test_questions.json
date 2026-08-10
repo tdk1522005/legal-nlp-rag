@@ -1,0 +1,50 @@
+﻿[
+  {
+    "id": "q001",
+    "question": "Điều kiện để giao dịch dân sự có hiệu lực là gì?",
+    "expected_law_id": "civil_code_2015",
+    "expected_article": "117"
+  },
+  {
+    "id": "q002",
+    "question": "Một giao dịch dân sự muốn có hiệu lực cần đáp ứng những điều kiện nào?",
+    "expected_law_id": "civil_code_2015",
+    "expected_article": "117"
+  },
+  {
+    "id": "q003",
+    "question": "Điều kiện về chủ thể, sự tự nguyện, mục đích và nội dung của giao dịch dân sự được quy định ở đâu?",
+    "expected_law_id": "civil_code_2015",
+    "expected_article": "117"
+  },
+  {
+    "id": "q004",
+    "question": "Điều 117 Bộ luật Dân sự 2015 quy định gì?",
+    "expected_law_id": "civil_code_2015",
+    "expected_article": "117"
+  },
+  {
+    "id": "q005",
+    "question": "Trong năm 2010, điều kiện có hiệu lực của giao dịch dân sự được quy định tại điều nào?",
+    "expected_law_id": "civil_code_2005",
+    "expected_article": "122"
+  },
+  {
+    "id": "q006",
+    "question": "Trong năm 2010, giao dịch dân sự phải đáp ứng những điều kiện nào để có hiệu lực?",
+    "expected_law_id": "civil_code_2005",
+    "expected_article": "122"
+  },
+  {
+    "id": "q007",
+    "question": "Điều 122 Bộ luật Dân sự 2005 quy định vấn đề gì?",
+    "expected_law_id": "civil_code_2005",
+    "expected_article": "122"
+  },
+  {
+    "id": "q008",
+    "question": "Vào năm 2010, quy định về điều kiện có hiệu lực của giao dịch dân sự nằm ở đâu?",
+    "expected_law_id": "civil_code_2005",
+    "expected_article": "122"
+  }
+]
