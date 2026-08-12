@@ -1,11 +1,9 @@
 ﻿from __future__ import annotations
 
-import os
 from pathlib import Path
 from typing import Any
 
 import streamlit as st
-from dotenv import load_dotenv
 
 from chat import (
     CONTEXT_MAX_CHARS,
@@ -16,11 +14,14 @@ from chat import (
     TOP_K,
     load_manifest,
     load_vector_store,
+    select_context_results,
+    is_semantic_result_relevant,
+    RELEVANCE_FALLBACK_MESSAGE,
     validate_manifest_compatibility,
 )
 from context.context_builder import ContextBuilder
-from llm.gemini_llm import GeminiLLM
-from models.bge_embedding import BGEEmbedding
+from llm.qwen_llm import QwenLLM
+from models.qwen_embedding import QwenEmbedding
 from prompt.prompt_builder import PromptBuilder
 from retrieval.retriever import Retriever
 from retrieval.temporal_router import (
@@ -36,10 +37,6 @@ from validity.validity_resolver import (
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 
-load_dotenv(
-    PROJECT_ROOT / ".env"
-)
-
 st.set_page_config(
     page_title="Trợ lý Pháp luật Dân sự",
     page_icon="⚖️",
@@ -51,16 +48,6 @@ st.set_page_config(
     show_spinner=False
 )
 def load_chatbot() -> dict[str, Any]:
-    api_key = os.getenv(
-        "GEMINI_API_KEY"
-    )
-
-    if not api_key:
-        raise ValueError(
-            "Không tìm thấy GEMINI_API_KEY "
-            "trong file .env."
-        )
-
     current_manifest = load_manifest(
         CURRENT_INDEX_DIR
     )
@@ -74,15 +61,15 @@ def load_chatbot() -> dict[str, Any]:
         temporal_manifest,
     )
 
-    embedding_model = BGEEmbedding(
+    embedding_model = QwenEmbedding(
         model_name=str(
             current_manifest["model_name"]
         ),
-        use_fp16=False,
-        batch_size=1,
-        max_length=int(
-            current_manifest["max_length"]
+        device="cpu",
+        dimension=int(
+            current_manifest["dimension"]
         ),
+        batch_size=1,
     )
 
     current_store = load_vector_store(
@@ -133,8 +120,15 @@ def load_chatbot() -> dict[str, Any]:
             include_score=False,
         ),
         "prompt_builder": PromptBuilder(),
-        "llm": GeminiLLM(
-            api_key=api_key
+        "llm": QwenLLM(
+            base_url="http://127.0.0.1:8080",
+            model_name="qwen",
+            temperature=0.2,
+            top_p=0.8,
+            top_k=20,
+            max_output_tokens=1024,
+            timeout=180,
+            disable_thinking=True,
         ),
         "current_count": len(
             current_store.documents
@@ -283,9 +277,7 @@ def answer_question(
         "warning": (
             resolution.warning
         ),
-        "sources": collect_sources(
-            results
-        ),
+        "sources": [],
         "validity_notes": (
             collect_validity_notes(
                 route_output[
@@ -303,9 +295,33 @@ def answer_question(
             metadata,
         )
 
+    if not is_semantic_result_relevant(
+        route_output
+    ):
+        metadata["sources"] = []
+
+        return (
+            RELEVANCE_FALLBACK_MESSAGE,
+            metadata,
+        )
+
+    context_results = (
+        select_context_results(
+            results
+        )
+    )
+
+    metadata["sources"] = (
+        collect_sources(
+            context_results
+        )
+    )
+
     context = chatbot[
         "context_builder"
-    ].build(results)
+    ].build(
+        context_results
+    )
 
     if not context:
         return (
@@ -446,11 +462,11 @@ with st.sidebar:
     )
 
     st.write(
-        "Mô hình embedding: BGE-M3"
+        "Mô hình embedding: QWEEN"
     )
 
     st.write(
-        "Mô hình trả lời: Gemini"
+        "Mô hình trả lời: QWEEN"
     )
 
     if st.button(

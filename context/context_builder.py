@@ -91,14 +91,6 @@ class ContextBuilder:
             or "Không rõ trích dẫn"
         )
 
-        law_id = str(
-            metadata.get("law_id", "")
-        )
-
-        chunk_id = str(
-            metadata.get("chunk_id", "")
-        )
-
         text = str(
             item.get("text", "")
         ).strip()
@@ -106,31 +98,6 @@ class ContextBuilder:
         header_lines = [
             f"[TRÍCH DẪN: {citation}]",
         ]
-
-        details: list[str] = []
-
-        if law_id:
-            details.append(
-                f"law_id={law_id}"
-            )
-
-        if chunk_id:
-            details.append(
-                f"chunk_id={chunk_id}"
-            )
-
-        if self.include_score:
-            score = item.get("score")
-
-            if score is not None:
-                details.append(
-                    f"score={float(score):.6f}"
-                )
-
-        if details:
-            header_lines.append(
-                "[" + " | ".join(details) + "]"
-            )
 
         return (
             "\n".join(header_lines)
@@ -194,26 +161,44 @@ class ContextBuilder:
                 article_items
             )
 
-            for item in sorted_items:
-                block = self._format_item(item)
+            # Merge all chunks from the same article
+            # into one continuous article block.
+            article_parts = [
+                self._format_item(item)
+                for item in sorted_items
+            ]
 
-                added_length = len(block)
+            article_block = "\n\n".join(
+                article_parts
+            ).strip()
 
-                if blocks:
-                    added_length += len(
-                        self.separator
-                    )
+            if not article_block:
+                continue
 
-                if (
+            added_length = len(
+                article_block
+            )
+
+            if blocks:
+                added_length += len(
+                    self.separator
+                )
+
+            if (
+                blocks
+                and current_length + added_length
+                > self.max_chars
+            ):
+                return self.separator.join(
                     blocks
-                    and current_length + added_length
-                    > self.max_chars
-                ):
-                    return self.separator.join(
-                        blocks
-                    )
+                )
 
-                blocks.append(block)
-                current_length += added_length
+            blocks.append(
+                article_block
+            )
+
+            current_length += (
+                added_length
+            )
 
         return self.separator.join(blocks)

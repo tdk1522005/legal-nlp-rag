@@ -172,44 +172,110 @@ class FaissStore:
             )
 
         if candidate_k is None:
-            candidate_k = top_k * 10 if filters else top_k
-
-        candidate_k = max(candidate_k, top_k)
-        candidate_k = min(candidate_k, int(self.index.ntotal))
-
-        scores, indices = self.index.search(query_matrix, candidate_k)
-
-        results: list[dict[str, Any]] = []
-
-        for score, index_position in zip(scores[0], indices[0]):
-            if index_position < 0:
-                continue
-
-            document = self.documents[int(index_position)]
-
-            if not self._matches_filters(document, filters):
-                continue
-
-            text = str(document.get("text", ""))
-            metadata = {
-                key: value
-                for key, value in document.items()
-                if key != "text"
-            }
-
-            results.append(
-                {
-                    "text": text,
-                    "metadata": metadata,
-                    "score": float(score),
-                    "faiss_id": int(index_position),
-                }
+            candidate_k = (
+                top_k * 10
+                if filters
+                else top_k
             )
 
-            if len(results) >= top_k:
-                break
+        candidate_k = max(
+            candidate_k,
+            top_k,
+        )
 
-        return results
+        total_vectors = int(
+            self.index.ntotal
+        )
+
+        candidate_k = min(
+            candidate_k,
+            total_vectors,
+        )
+
+        while True:
+            scores, indices = (
+                self.index.search(
+                    query_matrix,
+                    candidate_k,
+                )
+            )
+
+            results: list[
+                dict[str, Any]
+            ] = []
+
+            for (
+                score,
+                index_position,
+            ) in zip(
+                scores[0],
+                indices[0],
+            ):
+                if index_position < 0:
+                    continue
+
+                document = self.documents[
+                    int(index_position)
+                ]
+
+                if not self._matches_filters(
+                    document,
+                    filters,
+                ):
+                    continue
+
+                text = str(
+                    document.get(
+                        "text",
+                        "",
+                    )
+                )
+
+                metadata = {
+                    key: value
+                    for key, value
+                    in document.items()
+                    if key != "text"
+                }
+
+                results.append(
+                    {
+                        "text": text,
+                        "metadata": metadata,
+                        "score": float(
+                            score
+                        ),
+                        "faiss_id": int(
+                            index_position
+                        ),
+                    }
+                )
+
+                if len(results) >= top_k:
+                    break
+
+            # Khong co filter:
+            # mot lan FAISS search la du.
+            if not filters:
+                return results
+
+            # Da loc metadata va du top_k.
+            if len(results) >= top_k:
+                return results
+
+            # Da tim tren toan bo index.
+            if (
+                candidate_k
+                >= total_vectors
+            ):
+                return results
+
+            # Chua du ket qua:
+            # mo rong candidate pool.
+            candidate_k = min(
+                candidate_k * 2,
+                total_vectors,
+            )
 
     def save(
         self,

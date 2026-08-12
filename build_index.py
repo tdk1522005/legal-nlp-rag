@@ -10,7 +10,8 @@ from typing import Any
 
 import numpy as np
 
-from models.bge_embedding import BGEEmbedding
+
+from models.qwen_embedding import QwenEmbedding
 from vectorstore.faiss_store import FaissStore
 
 
@@ -158,7 +159,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "--model-name",
-        default="BAAI/bge-m3",
+        default="Qwen/Qwen3-Embedding-0.6B",
     )
 
     parser.add_argument(
@@ -168,16 +169,13 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
-        "--max-length",
+        "--dimension",
         type=int,
         default=1024,
+        help="Qwen embedding dimension.",
     )
 
-    parser.add_argument(
-        "--use-fp16",
-        action="store_true",
-        help="Chỉ bật khi GPU hỗ trợ FP16 ổn định.",
-    )
+
 
     parser.add_argument(
         "--limit",
@@ -232,8 +230,6 @@ def main() -> None:
     print(f"Output       : {output_dir}")
     print(f"Model        : {args.model_name}")
     print(f"Batch size   : {args.batch_size}")
-    print(f"Max length   : {args.max_length}")
-    print(f"FP16         : {args.use_fp16}")
 
     rows = load_jsonl(corpus_path, limit=args.limit)
     validate_rows(rows)
@@ -253,13 +249,13 @@ def main() -> None:
         print(f"  - {law_id}: {count}")
 
     print("-" * 80)
-    print("Đang tải BGE-M3...")
+    print("Initializing Qwen Embedding...")
 
-    embedding_model = BGEEmbedding(
+    embedding_model = QwenEmbedding(
         model_name=args.model_name,
-        use_fp16=args.use_fp16,
+        device="cpu",
+        dimension=args.dimension,
         batch_size=args.batch_size,
-        max_length=args.max_length,
     )
 
     print("Đang tạo dense embedding...")
@@ -301,6 +297,7 @@ def main() -> None:
         "corpus_file": str(corpus_path),
         "corpus_sha256": sha256_file(corpus_path),
         "model_name": args.model_name,
+        "embedding_provider": "qwen",
         "embedding_mode": "dense",
         "dimension": dimension,
         "vector_count": int(store.index.ntotal),
@@ -309,8 +306,6 @@ def main() -> None:
         "faiss_index_type": "IndexFlatIP",
         "similarity": "cosine",
         "batch_size": args.batch_size,
-        "max_length": args.max_length,
-        "use_fp16": args.use_fp16,
         "limited_build": args.limit is not None,
         "limit": args.limit,
         "law_counts": dict(sorted(law_counts.items())),

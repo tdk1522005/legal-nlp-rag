@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import sys
@@ -31,7 +31,7 @@ from chat import (
     validate_manifest_compatibility,
 )
 
-from models.bge_embedding import BGEEmbedding
+from models.qwen_embedding import QwenEmbedding
 from retrieval.retriever import Retriever
 from retrieval.temporal_router import TemporalRetrievalRouter
 from temporal.query_date_resolver import QueryDateResolver
@@ -46,6 +46,9 @@ TEST_FILE = EVALUATION_DIR / "test_questions.json"
 
 # Chatbot hiện lấy tối đa 8 kết quả để kiểm tra
 MAX_RESULTS = 8
+
+# Ranking metrics
+METRIC_KS = (1, 3, 5, 8)
 
 
 # =========================================================
@@ -78,7 +81,7 @@ def load_test_questions() -> list[dict[str, Any]]:
 
 
 # =========================================================
-# 5. TẢI BGE-M3 + FAISS
+# 5. TẢI Qwen3-Embedding-0.6B + FAISS
 # =========================================================
 
 def load_retrieval_pipeline() -> TemporalRetrievalRouter:
@@ -101,19 +104,19 @@ def load_retrieval_pipeline() -> TemporalRetrievalRouter:
     )
 
     print(
-        "- Tải mô hình BGE-M3: "
+        "- Tải mô hình Qwen3-Embedding-0.6B: "
         f"{current_manifest['model_name']}..."
     )
 
-    embedding_model = BGEEmbedding(
+    embedding_model = QwenEmbedding(
         model_name=str(
             current_manifest["model_name"]
         ),
-        use_fp16=False,
-        batch_size=1,
-        max_length=int(
-            current_manifest["max_length"]
+        device="cpu",
+        dimension=int(
+            current_manifest["dimension"]
         ),
+        batch_size=1,
     )
 
     print("- Tải current FAISS index...")
@@ -272,6 +275,13 @@ def main() -> None:
 
     error_count = 0
 
+    hit_counts = {
+        k: 0
+        for k in METRIC_KS
+    }
+
+    reciprocal_rank_sum = 0.0
+
     # -----------------------------------------------------
     # Chạy từng câu
     # -----------------------------------------------------
@@ -324,6 +334,15 @@ def main() -> None:
                 expected_law_id=expected_law_id,
                 expected_article=expected_article,
             )
+
+            if position is not None:
+                reciprocal_rank_sum += (
+                    1.0 / position
+                )
+
+                for k in METRIC_KS:
+                    if position <= k:
+                        hit_counts[k] += 1
 
             print(
                 f"Chỉ mục: "
@@ -428,6 +447,23 @@ def main() -> None:
         * 100
     )
     accuracy = found_rate
+
+    hit_at = {
+        k: hit_counts[k] / total
+        for k in METRIC_KS
+    }
+
+    # The current dataset contains exactly one
+    # relevant law/article target per question.
+    # Therefore Recall@K equals Hit@K.
+    recall_at = {
+        k: hit_at[k]
+        for k in METRIC_KS
+    }
+
+    mrr_at_8 = (
+        reciprocal_rank_sum / total
+    )
 
     not_found_rate = (
         not_found
@@ -534,6 +570,48 @@ def main() -> None:
     )
 
     print()
+    print()
+    print("-" * 72)
+    print("RANKING METRICS")
+    print("-" * 72)
+    print()
+
+    for k in METRIC_KS:
+        print(
+            f"Hit@{k:<2}    : "
+            f"{hit_at[k] * 100:.2f}% "
+            f"({hit_counts[k]}/{total})"
+        )
+
+    print()
+
+    for k in METRIC_KS:
+        print(
+            f"Recall@{k:<2} : "
+            f"{recall_at[k] * 100:.2f}%"
+        )
+
+    print()
+
+    print(
+        f"MRR@{MAX_RESULTS:<2}    : "
+        f"{mrr_at_8:.4f}"
+    )
+
+    print()
+
+    print(
+        "Note: one relevant law/article target "
+        "per question => Recall@K = Hit@K."
+    )
+
+    print(
+        f"Accuracy = Hit@{MAX_RESULTS} "
+        "for the current evaluation setup."
+    )
+
+    print()
+
     print("=" * 72)
 
 

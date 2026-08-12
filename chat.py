@@ -1,15 +1,13 @@
 ﻿from __future__ import annotations
 
 import json
-import os
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
 
 from context.context_builder import ContextBuilder
-from llm.gemini_llm import GeminiLLM
-from models.bge_embedding import BGEEmbedding
+from llm.qwen_llm import QwenLLM
+from models.qwen_embedding import QwenEmbedding
 from prompt.prompt_builder import PromptBuilder
 from retrieval.retriever import Retriever
 from retrieval.temporal_router import TemporalRetrievalRouter
@@ -23,13 +21,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 CURRENT_INDEX_DIR = (
     PROJECT_ROOT
     / "index"
-    / "legal_dense"
+    / "legal_dense_qwen"
 )
 
 TEMPORAL_INDEX_DIR = (
     PROJECT_ROOT
     / "index"
-    / "legal_temporal"
+    / "legal_temporal_qwen"
 )
 
 TOP_K = 8
@@ -61,7 +59,7 @@ def load_manifest(
     required_fields = {
         "model_name",
         "dimension",
-        "max_length",
+        "embedding_provider",
         "vector_count",
     }
 
@@ -89,7 +87,7 @@ def validate_manifest_compatibility(
     fields = (
         "model_name",
         "dimension",
-        "max_length",
+        "embedding_provider",
     )
 
     for field in fields:
@@ -354,21 +352,201 @@ def print_validity_report(
         )
 
 
-def main() -> None:
-    load_dotenv(
-        PROJECT_ROOT / ".env"
-    )
+SEMANTIC_MIN_SCORE = 0.65
+ARTICLE_HEADING_MIN_SCORE = 0.90
 
-    api_key = os.getenv(
-        "GEMINI_API_KEY"
-    )
+RELEVANCE_FALLBACK_MESSAGE = (
+    "Tôi chưa tìm thấy đủ căn cứ "
+    "trong kho văn bản pháp luật "
+    "hiện có để trả lời chính xác "
+    "câu hỏi này."
+)
 
-    if not api_key:
-        raise ValueError(
-            "Không tìm thấy GEMINI_API_KEY "
-            "trong file .env."
+
+def is_semantic_result_relevant(
+    route_output: dict[str, Any],
+) -> bool:
+    """
+    Decide whether retrieval has enough evidence
+    to continue to context building and the LLM.
+
+    Accepted evidence:
+    1. Exact legal reference.
+    2. Strong Qwen semantic similarity.
+    3. Strong article-heading match for
+       no-accent Vietnamese queries.
+    """
+    retrieval_mode = str(
+        route_output.get(
+            "retrieval_mode",
+            "semantic",
         )
+    )
 
+    # Exact document/article lookup does not use
+    # cosine similarity.
+    if retrieval_mode == "exact_reference":
+        return True
+
+    law_scope = route_output.get(
+        "law_scope"
+    )
+
+    # Explicitly detected unsupported domain.
+    if (
+        law_scope is not None
+        and bool(
+            getattr(
+                law_scope,
+                "is_out_of_scope",
+                False,
+            )
+        )
+    ):
+        return False
+
+    results = route_output.get(
+        "results",
+        [],
+    )
+
+    if not results:
+        return False
+
+    top_result = results[0]
+
+    # -------------------------------------------------
+    # Evidence type 1:
+    # Article-heading retrieval.
+    #
+    # Do not treat heading_score as cosine similarity.
+    # It has its own independent threshold.
+    # -------------------------------------------------
+    retrieval_source = str(
+        top_result.get(
+            "retrieval_source",
+            "",
+        )
+    )
+
+    heading_score = top_result.get(
+        "heading_score"
+    )
+
+    if (
+        retrieval_source
+        == "article_heading"
+        and heading_score is not None
+        and float(heading_score)
+        >= ARTICLE_HEADING_MIN_SCORE
+    ):
+        return True
+
+    # -------------------------------------------------
+    # Evidence type 2:
+    # Qwen semantic similarity.
+    # -------------------------------------------------
+    top_score = top_result.get(
+        "score"
+    )
+
+    if top_score is None:
+        return False
+
+    return (
+        float(top_score)
+        >= SEMANTIC_MIN_SCORE
+    )
+
+
+def select_context_results(
+    results: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """
+    Reduce retrieval noise before sending context
+    to a small local LLM.
+
+    If the first two ranked results belong to the
+    same law and article, treat that article as the
+    primary answer source and keep all retrieved
+    chunks from that article.
+
+    Otherwise keep the original retrieval results.
+    """
+    if len(results) < 2:
+        return results
+
+    first_metadata = results[0].get(
+        "metadata",
+        {},
+    )
+
+    second_metadata = results[1].get(
+        "metadata",
+        {},
+    )
+
+    first_key = (
+        str(first_metadata.get("law_id", "")),
+        str(
+            first_metadata.get(
+                "article_number",
+                "",
+            )
+        ),
+    )
+
+    second_key = (
+        str(second_metadata.get("law_id", "")),
+        str(
+            second_metadata.get(
+                "article_number",
+                "",
+            )
+        ),
+    )
+
+    if (
+        not first_key[0]
+        or not first_key[1]
+        or first_key != second_key
+    ):
+        return results
+
+    focused_results = [
+        result
+        for result in results
+        if (
+            str(
+                result.get(
+                    "metadata",
+                    {},
+                ).get(
+                    "law_id",
+                    "",
+                )
+            ),
+            str(
+                result.get(
+                    "metadata",
+                    {},
+                ).get(
+                    "article_number",
+                    "",
+                )
+            ),
+        )
+        == first_key
+    ]
+
+    return (
+        focused_results
+        if focused_results
+        else results
+    )
+
+
+def main() -> None:
     print("=" * 70)
     print("KHỞI ĐỘNG LEGAL RAG CHATBOT")
     print("=" * 70)
@@ -395,23 +573,19 @@ def main() -> None:
     )
 
     print(
-        "Đang tải BGE-M3 "
+        "Đang tải Qwen3-Embedding-0.6B "
         f"({current_manifest['model_name']})..."
     )
 
-    embedding_model = BGEEmbedding(
+    embedding_model = QwenEmbedding(
         model_name=str(
-            current_manifest[
-                "model_name"
-            ]
+            current_manifest["model_name"]
         ),
-        use_fp16=False,
+        device="cpu",
+        dimension=int(
+            current_manifest["dimension"]
+        ),
         batch_size=1,
-        max_length=int(
-            current_manifest[
-                "max_length"
-            ]
-        ),
     )
 
     print(
@@ -475,8 +649,15 @@ def main() -> None:
 
     prompt_builder = PromptBuilder()
 
-    llm = GeminiLLM(
-        api_key=api_key
+    llm = QwenLLM(
+        base_url="http://127.0.0.1:8080",
+        model_name="qwen",
+        temperature=0.2,
+        top_p=0.8,
+        top_k=20,
+        max_output_tokens=1024,
+        timeout=180,
+        disable_thinking=True,
     )
 
     current_count = len(
@@ -559,8 +740,28 @@ def main() -> None:
                 )
                 continue
 
+            if not is_semantic_result_relevant(
+                route_output
+            ):
+                print_temporal_report(
+                    route_output
+                )
+
+                print()
+                print(
+                    "Tr\u1ee3 l\u00fd:",
+                    RELEVANCE_FALLBACK_MESSAGE,
+                )
+                continue
+
+            context_results = (
+                select_context_results(
+                    results
+                )
+            )
+
             context = context_builder.build(
-                results
+                context_results
             )
 
             if not context:
@@ -602,7 +803,9 @@ def main() -> None:
                 validity_report
             )
 
-            print_sources(results)
+            print_sources(
+                context_results
+            )
 
         except Exception as error:
             print(
