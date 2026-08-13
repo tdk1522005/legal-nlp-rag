@@ -424,53 +424,8 @@ def main() -> None:
             )
 
     # =====================================================
-    # Global ranking metrics
+    # Ket qua danh gia
     # =====================================================
-
-    print()
-    print("=" * 90)
-    print("GLOBAL RANKING METRICS")
-    print("=" * 90)
-
-    print(
-        "Relevant questions:",
-        relevant_count,
-    )
-
-    for k in METRIC_KS:
-        value = (
-            hit_counts[k]
-            / relevant_count
-            if relevant_count
-            else 0.0
-        )
-
-        print(
-            f"Hit@{k:<2}: "
-            f"{value * 100:.2f}% "
-            f"({hit_counts[k]}/"
-            f"{relevant_count})"
-        )
-
-    mrr = (
-        reciprocal_rank_sum
-        / relevant_count
-        if relevant_count
-        else 0.0
-    )
-
-    print(
-        f"MRR@8 : {mrr:.4f}"
-    )
-
-    # =====================================================
-    # Relevance gate metrics
-    # =====================================================
-
-    print()
-    print("=" * 90)
-    print("RELEVANCE GATE")
-    print("=" * 90)
 
     total_gate = (
         true_positive
@@ -480,180 +435,151 @@ def main() -> None:
     )
 
     gate_accuracy = (
-        (
-            true_positive
-            + true_negative
-        )
-        / total_gate
+        (true_positive + true_negative) / total_gate
         if total_gate
         else 0.0
     )
 
-    precision = (
+    gate_precision = (
         true_positive
-        / (
-            true_positive
-            + false_positive
-        )
-        if (
-            true_positive
-            + false_positive
-        )
+        / (true_positive + false_positive)
+        if (true_positive + false_positive)
         else 0.0
     )
 
-    recall = (
+    gate_recall = (
         true_positive
-        / (
-            true_positive
-            + false_negative
-        )
-        if (
-            true_positive
-            + false_negative
-        )
+        / (true_positive + false_negative)
+        if (true_positive + false_negative)
         else 0.0
     )
 
-    print(
-        "True Positive :",
-        true_positive,
-    )
-    print(
-        "True Negative :",
-        true_negative,
-    )
-    print(
-        "False Positive:",
-        false_positive,
-    )
-    print(
-        "False Negative:",
-        false_negative,
+    mrr = (
+        reciprocal_rank_sum / relevant_count
+        if relevant_count
+        else 0.0
     )
 
-    print(
-        f"Gate Accuracy : "
-        f"{gate_accuracy * 100:.2f}%"
+    total_questions = total_gate
+    out_of_domain_count = (
+        true_negative + false_positive
     )
-
-    print(
-        f"Gate Precision: "
-        f"{precision * 100:.2f}%"
-    )
-
-    print(
-        f"Gate Recall   : "
-        f"{recall * 100:.2f}%"
-    )
-
-    # =====================================================
-    # Category metrics
-    # =====================================================
 
     print()
-    print("=" * 90)
-    print("METRICS BY CATEGORY")
-    print("=" * 90)
+    print("=" * 72)
+    print(
+        "\u0110\u00c1NH GI\u00c1 H\u1ec6 TH\u1ed0NG RAG PH\u00c1P LU\u1eacT"
+    )
+    print("=" * 72)
 
-    for category, stats in (
-        category_stats.items()
-    ):
-        count = stats["count"]
+    print()
+    print(
+        f"T\u1ed5ng s\u1ed1 c\u00e2u ki\u1ec3m th\u1eed : "
+        f"{total_questions}"
+    )
+    print(
+        f"C\u00e2u c\u00f3 \u0111\u00e1p \u00e1n      : "
+        f"{relevant_count}"
+    )
+    print(
+        f"C\u00e2u ngo\u00e0i ph\u1ea1m vi   : "
+        f"{out_of_domain_count}"
+    )
 
-        gate_acc = (
-            stats["gate_correct"]
-            / count
-            if count
+    print()
+    print("-" * 72)
+    print(
+        "K\u1ebeT QU\u1ea2 TRUY XU\u1ea4T"
+    )
+    print("-" * 72)
+
+    for k in METRIC_KS:
+        value = (
+            hit_counts[k] / relevant_count
+            if relevant_count
             else 0.0
         )
 
-        print()
         print(
-            "CATEGORY:",
-            category,
+            f"Hit@{k:<2} : "
+            f"{value * 100:6.2f}% "
+            f"({hit_counts[k]}/{relevant_count})"
         )
 
-        print(
-            "Questions:",
-            count,
-        )
-
-        print(
-            f"Gate accuracy: "
-            f"{gate_acc * 100:.2f}% "
-            f"({stats['gate_correct']}/"
-            f"{count})"
-        )
-
-        relevant = stats[
-            "relevant"
-        ]
-
-        if relevant:
-            top1 = (
-                stats["top1"]
-                / relevant
-            )
-
-            hit8 = (
-                stats["hit8"]
-                / relevant
-            )
-
-            category_mrr = (
-                stats["rr_sum"]
-                / relevant
-            )
-
-            print(
-                f"Hit@1: "
-                f"{top1 * 100:.2f}% "
-                f"({stats['top1']}/"
-                f"{relevant})"
-            )
-
-            print(
-                f"Hit@8: "
-                f"{hit8 * 100:.2f}% "
-                f"({stats['hit8']}/"
-                f"{relevant})"
-            )
-
-            print(
-                f"MRR@8: "
-                f"{category_mrr:.4f}"
-            )
-
-    # =====================================================
-    # Failed cases
-    # =====================================================
+    print(
+        f"MRR@8  : {mrr:.4f}"
+    )
 
     print()
-    print("=" * 90)
-    print("FAILED CASES")
-    print("=" * 90)
+    print("-" * 72)
+    print(
+        "K\u1ebeT QU\u1ea2 KI\u1ec2M SO\u00c1T C\u00c2U H\u1eceI NGO\u00c0I PH\u1ea0M VI"
+    )
+    print("-" * 72)
 
-    if not failed_cases:
+    print(
+        f"Accuracy  : {gate_accuracy * 100:6.2f}%"
+    )
+    print(
+        f"Precision : {gate_precision * 100:6.2f}%"
+    )
+    print(
+        f"Recall    : {gate_recall * 100:6.2f}%"
+    )
+
+    print()
+    print("-" * 72)
+    print(
+        "MA TR\u1eacN K\u1ebeT QU\u1ea2"
+    )
+    print("-" * 72)
+
+    print(
+        f"True Positive  : {true_positive}"
+    )
+    print(
+        f"True Negative  : {true_negative}"
+    )
+    print(
+        f"False Positive : {false_positive}"
+    )
+    print(
+        f"False Negative : {false_negative}"
+    )
+
+    print()
+    print("-" * 72)
+    print(
+        "T\u1ed4NG K\u1ebeT"
+    )
+    print("-" * 72)
+
+    print(
+        f"Truy xu\u1ea5t \u0111\u00fang ngay Top-1 : "
+        f"{hit_counts[1]}/{relevant_count}"
+    )
+
+    print(
+        f"T\u1eeb ch\u1ed1i \u0111\u00fang c\u00e2u ngo\u00e0i ph\u1ea1m vi : "
+        f"{true_negative}/{out_of_domain_count}"
+    )
+
+    print(
+        f"S\u1ed1 tr\u01b0\u1eddng h\u1ee3p l\u1ed7i : "
+        f"{len(failed_cases)}"
+    )
+
+    print("=" * 72)
+
+    if failed_cases:
+        print()
         print(
-            "NONE"
+            "C\u00c1C TR\u01af\u1edcNG H\u1ee2P CH\u01afA \u0110\u1ea0T"
         )
-    else:
-        for (
-            question_id,
-            category,
-            reason,
-            question,
-        ) in failed_cases:
-            print(
-                f"{question_id} | "
-                f"{category} | "
-                f"{reason}"
-            )
-            print(
-                "  ",
-                question,
-            )
+        print("-" * 72)
+
+        for item in failed_cases:
+            print(item)
 
 
 if __name__ == "__main__":

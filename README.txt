@@ -1,162 +1,191 @@
-1. Clone project từ GitHub
+LEGAL NLP RAG - CHATBOT TƯ VẤN PHÁP LUẬT DÂN SỰ
+
+1. Clone project
 
 git clone https://github.com/tdk1522005/legal-nlp-rag.git
 cd legal-nlp-rag
+git switch stage-7-streamlit-web
 
-Phiên bản mới nhất hiện đang nằm ở branch: git switch stage-7-streamlit-web
 
-2. Tạo môi trường ảo Python
+2. Tạo môi trường Python
 
 python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
-Kích hoạt môi trường: .\.venv\Scripts\Activate.ps1
-
-3. Cài đặt thư viện
-
+python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 
-python -m pip install python-docx networkx
 
-4. Tạo file .env
-
-Tại thư mục gốc của project:
-
-legal-nlp-rag/
-
-tạo file: .env
-
-Nội dung: GEMINI_API_KEY=YOUR_GEMINI_API_KEY
-
-5. Chuẩn bị dữ liệu pháp luật
+3. Chuẩn bị dữ liệu pháp luật
 
 data/
 └── raw/
-    ├── current(Văn bản hiện hành)/
-    ├── historical(Văn bản lịch sử/đã hết hiệu lực)/
-    ├── amendments(Văn bản sửa đổi, bổ sung)/
-    └── consolidated(Văn bản hợp nhất)/
-
-6. Kiểm tra metadata pháp luật
-
-Kiểm tra các file: python .\scripts\validate_legal_metadata.py
-
-7. Xây dựng Legal Corpus
-
-python .\scripts\build_legal_corpus.py
-
-[thực hiện DOCX -> LegalDocxParser(Phân tích cấu trúc luật) -> Legal Tree(Cây phần => Chương => Điều => Khoản => Điểm) -> Legal Chunker(Chia thành các legal chunk) -> JSONL Corpus]
+    ├── current/
+    ├── historical/
+    ├── amendments/
+    └── consolidated/
 
 
-8. Build FAISS Index cho pháp luật hiện hành
-
-python .\build_index.py --corpus ".\data\chunks\default_retrieval_corpus.jsonl" --output-dir ".\index\legal_dense"
-
-[default_retrieval_corpus.jsonl -> BAAI/bge-m3 -> Dense Embedding 1024 chiều -> L2 Normalization -> FAISS IndexFlatIP -> index/legal_dense]
-
-
-9. Build FAISS Index theo thời gian
-
-Để chatbot có thể trả lời câu hỏi legal trong qua khứ build thêm temporal index:
-
-python .\build_index.py --corpus ".\data\chunks\legal_corpus.jsonl" --output-dir ".\index\legal_temporal"
-
-10. Build lại index khi index đã tồn tại
-
-Để ghi đè thêm index
-
-ví dụ Current index:
-python .\build_index.py --corpus ".\data\chunks\default_retrieval_corpus.jsonl" --output-dir ".\index\legal_dense" --force
-
-Temporal index:
-python .\build_index.py --corpus ".\data\chunks\legal_corpus.jsonl" --output-dir ".\index\legal_temporal" --force
-
-11. Một số lệnh kiểm tra hệ thống
-
-Kiểm tra parser: python .\scripts\test_legal_parser.py
-Kiểm tra Legal Chunker: python .\scripts\test_legal_chunker.py
-Kiểm tra Graph quan hệ pháp luật: python .\scripts\test_law_graph.py
-Kiểm tra FAISS Dense Index: python .\scripts\test_dense_index.py
-
-12. Chạy chatbot trên Terminal
-
-python .\chat.py
-
-[Đọc current index manifest -> Đọc temporal index manifest -> load BGE-M3 -> Load current FAISS index -> Load temporal FAISS index -> Khởi tạo Retriever -> Khởi tạo ValidityResolver -> Khởi tạo QueryDateResolver -> Khởi tạo TemporalRetrievalRouter -> Khởi tạo ContextBuilder -> Khởi tạo PromptBuilder -> Khởi tạo Gemini ->Chatbot sẳn sàng]
-
-13. Chạy giao diện Web bằng Streamlit
-
-python -m streamlit run .\web_app.py
-
-
-
-TÓM TẮT LỆNH TỪ ĐẦU ĐẾN CUỐI
-
-# 1. Tạo môi trường ảo
-
-python -m venv .venv
-
-
-# 2. Kích hoạt môi trường ảo
-
-.\.venv\Scripts\Activate.ps1
-
-
-# 3. Cài thư viện
-
-python -m pip install --upgrade pip
-
-python -m pip install -r requirements.txt
-
-python -m pip install python-docx networkx
-
-
-# 4. Kiểm tra metadata pháp luật
+4. Kiểm tra metadata
 
 python .\scripts\validate_legal_metadata.py
 
 
-# 5. Parse + Chunk + Build Legal Corpus
-# DOCX
-# → phân tích cấu trúc luật
-# → tạo Legal Tree
-# → chia Legal Chunk
-# → tạo corpus JSONL
+5. Xây dựng Legal Corpus
 
 python .\scripts\build_legal_corpus.py
 
+Quy trình:
 
-# 6. Tokenize + Embedding + Build Current FAISS Index
-# default_retrieval_corpus.jsonl
-# → tokenizer nội bộ của BGE-M3
-# → BAAI/bge-m3
-# → Dense Embedding 1024 chiều
-# → L2 Normalization
-# → FAISS IndexFlatIP
-# → index/legal_dense
-
-python .\build_index.py --corpus ".\data\chunks\default_retrieval_corpus.jsonl" --output-dir ".\index\legal_dense"
+DOCX
+→ Chuẩn hóa văn bản
+→ LegalDocxParser
+→ Legal Tree
+→ Legal Chunker
+→ Metadata
+→ JSONL Corpus
 
 
-# 7. Tokenize + Embedding + Build Temporal FAISS Index
-# legal_corpus.jsonl
-# → tokenizer nội bộ của BGE-M3
-# → Dense Embedding
-# → L2 Normalization
-# → FAISS IndexFlatIP
-# → index/legal_temporal
+6. Tạo embedding
 
-python .\build_index.py --corpus ".\data\chunks\legal_corpus.jsonl" --output-dir ".\index\legal_temporal"
+Mô hình:
+
+Qwen/Qwen3-Embedding-0.6B
+
+Mỗi legal chunk được chuyển thành vector 1024 chiều
+và chuẩn hóa L2.
+
+Cache embedding chính:
+
+data/embeddings/qwen3_embedding_0_6b_1024
 
 
-# 8. Chạy chatbot bằng Terminal
+7. Xây dựng FAISS Index
+
+Current Index:
+
+python .\build_index.py `
+    --corpus ".\data\chunks\default_retrieval_corpus.jsonl" `
+    --output-dir ".\index\legal_dense_qwen"
+
+Temporal Index:
+
+python .\build_index.py `
+    --corpus ".\data\chunks\legal_corpus.jsonl" `
+    --output-dir ".\index\legal_temporal_qwen"
+
+Hai index chính:
+
+index/
+├── legal_dense_qwen
+└── legal_temporal_qwen
+
+FAISS sử dụng IndexFlatIP.
+Vector đã được chuẩn hóa L2 nên Inner Product
+tương đương Cosine Similarity.
+
+
+8. Một số lệnh kiểm tra
+
+Parser:
+
+python .\scripts\test_legal_parser.py
+
+Legal Chunker:
+
+python .\scripts\test_legal_chunker.py
+
+Legal Graph:
+
+python .\scripts\test_law_graph.py
+
+FAISS + Qwen Embedding:
+
+python .\scripts\test_dense_index.py
+
+Đánh giá hệ thống:
+
+$env:PYTHONPATH = (Get-Location).Path
+python .\evaluation\evaluate_extended.py
+
+
+9. Chạy chatbot bằng Terminal
 
 python .\chat.py
 
 
-# 9. Hoặc chạy chatbot bằng giao diện Web Streamlit
+10. Chạy giao diện Streamlit
 
-python -m streamlit run .\web_app.py
+Có thể chạy trực tiếp:
+
+python -m streamlit run .\web_app.py `
+    --server.fileWatcherType none
+
+Hoặc dùng launcher:
+
+.\start_chatbot.ps1
 
 
+11. Kiến trúc hệ thống
 
- 
+OFFLINE:
+
+DOCX
+→ Tiền xử lý
+→ Legal Parser
+→ Legal Tree
+→ Legal Chunk
+→ Metadata
+→ Qwen3-Embedding-0.6B
+→ L2 Normalization
+→ FAISS
+
+
+ONLINE:
+
+Câu hỏi người dùng
+→ Xác định thời điểm pháp lý
+→ Xác định văn bản có hiệu lực
+→ Exact Retrieval hoặc Semantic Retrieval
+→ Qwen Query Embedding
+→ FAISS
+→ Context Builder
+→ Prompt Builder
+→ Qwen3-4B
+→ Câu trả lời
+→ Streamlit
+
+
+12. Mô hình sử dụng
+
+Embedding:
+Qwen/Qwen3-Embedding-0.6B
+
+LLM:
+Qwen3-4B
+
+Vector Database:
+FAISS
+
+Giao diện:
+Streamlit
+
+
+13. Hai kho truy xuất
+
+legal_dense_qwen:
+Dùng cho hệ thống pháp luật hiện hành.
+
+legal_temporal_qwen:
+Dùng khi câu hỏi đề cập đến một thời điểm trong quá khứ.
+
+
+14. Lưu ý
+
+Project không sử dụng BGE-M3 hoặc Gemini trong pipeline hiện tại.
+
+Không cần GEMINI_API_KEY.
+
+Qwen3-Embedding-0.6B được sử dụng để tạo vector.
+
+Qwen3-4B được chạy local thông qua llama.cpp để sinh câu trả lời.

@@ -27,7 +27,7 @@ DEFAULT_CORPUS = (
 DEFAULT_OUTPUT_DIR = (
     PROJECT_ROOT
     / "index"
-    / "legal_dense"
+    / "legal_dense_qwen"
 )
 
 
