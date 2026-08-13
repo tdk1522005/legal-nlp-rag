@@ -1,0 +1,28 @@
+{
+  "relation_types": {
+    "REPLACES": {
+      "description": "Văn bản nguồn thay thế toàn bộ văn bản đích.",
+      "directed": true
+    },
+    "AMENDS": {
+      "description": "Văn bản nguồn sửa đổi một phần văn bản đích.",
+      "directed": true
+    },
+    "SUPPLEMENTS": {
+      "description": "Văn bản nguồn bổ sung nội dung cho văn bản đích.",
+      "directed": true
+    },
+    "GUIDES": {
+      "description": "Văn bản nguồn hướng dẫn thi hành văn bản đích.",
+      "directed": true
+    },
+    "CONSOLIDATES": {
+      "description": "Văn bản nguồn là văn bản hợp nhất từ văn bản đích.",
+      "directed": true
+    },
+    "RELATED_TO": {
+      "description": "Hai văn bản có nội dung pháp lý liên quan.",
+      "directed": false
+    }
+  }
+}
