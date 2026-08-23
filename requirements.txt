@@ -1,0 +1,10 @@
+FlagEmbedding
+faiss-cpu
+numpy
+torch
+langchain-core
+langchain-community
+langchain-text-splitters
+docx2txt
+python-dotenv
+google-generativeai
