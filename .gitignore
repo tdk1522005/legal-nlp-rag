@@ -1,4 +1,32 @@
-﻿__pycache__/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
 .venv/
+venv/
+env/
+
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# Generated vector indexes
 index/
+
+# Notebook / test / tooling caches
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
