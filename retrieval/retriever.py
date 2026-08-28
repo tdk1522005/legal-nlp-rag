@@ -5,7 +5,7 @@ from typing import Any
 
 class Retriever:
     """
-    Dense retriever sử dụng BGE-M3 và FAISS.
+    Dense retriever sử dụng Qwen3-Embedding-0.6B và FAISS.
 
     Luồng xử lý:
     query
