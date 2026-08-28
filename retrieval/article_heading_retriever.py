@@ -6,13 +6,14 @@ from typing import Any
 from retrieval.exact_reference import normalize_text
 
 
-STOP_WORDS = {
+# Used only for lexical matching of legal article headings.
+# Stopword removal is NOT applied before Qwen3 dense embedding.
+# Keep legally meaningful words such as: co, duoc, phai, khong, khi.
+HEADING_STOP_WORDS = {
     "la",
     "gi",
-    "co",
     "va",
     "cua",
-    "duoc",
     "nhu",
     "the",
     "nao",
@@ -23,10 +24,6 @@ STOP_WORDS = {
     "ve",
     "trong",
     "tai",
-    "phai",
-    "dap",
-    "ung",
-    "khi",
 }
 
 
@@ -40,7 +37,7 @@ def _token_list(
     return [
         token
         for token in normalized.split()
-        if token not in STOP_WORDS
+        if token not in HEADING_STOP_WORDS
         and len(token) > 1
     ]
 
