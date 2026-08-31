@@ -1,9 +1,25 @@
 ﻿from __future__ import annotations
 
 import json
+import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
+
+
+# =========================================================
+# PROJECT PATH
+# =========================================================
+
+EVALUATION_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = EVALUATION_DIR.parent
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(
+        0,
+        str(PROJECT_ROOT),
+    )
+
 
 from chat import is_semantic_result_relevant
 from evaluation.evaluate import (

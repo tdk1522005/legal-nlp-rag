@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "last_updated": "2026-08-06",
+  "last_updated": "2026-08-28",
   "relations": [
     {
       "relation_id": "civil_code_2015_replaces_civil_code_2005",
@@ -163,6 +163,177 @@
         "tố tụng dân sự"
       ],
       "description": "Luật Công chứng 2024 có nội dung sửa đổi một phần Bộ luật Tố tụng dân sự 2015."
+    },
+    {
+      "relation_id": "decree_21_2021_guides_civil_code_2015",
+      "source": "secured_obligations_decree_21_2021",
+      "relation": "GUIDES",
+      "target": "civil_code_2015",
+      "effective_date": "2021-05-15",
+      "scope": "legal_domain",
+      "affected_articles": [],
+      "topics": [
+        "bảo đảm thực hiện nghĩa vụ",
+        "tài sản bảo đảm",
+        "cầm cố",
+        "thế chấp",
+        "bảo lãnh",
+        "xử lý tài sản bảo đảm"
+      ],
+      "description": "Nghị định 21/2021/NĐ-CP hướng dẫn thi hành Bộ luật Dân sự về bảo đảm thực hiện nghĩa vụ."
+    },
+    {
+      "relation_id": "decree_99_2022_related_civil_code_2015",
+      "source": "security_registration_decree_99_2022",
+      "relation": "RELATED_TO",
+      "target": "civil_code_2015",
+      "effective_date": "2023-01-15",
+      "scope": "legal_domain",
+      "affected_articles": [],
+      "topics": [
+        "đăng ký biện pháp bảo đảm",
+        "tài sản bảo đảm",
+        "thế chấp"
+      ],
+      "description": "Nghị định 99/2022/NĐ-CP quy định về đăng ký các biện pháp bảo đảm có liên quan đến các biện pháp bảo đảm trong Bộ luật Dân sự."
+    },
+    {
+      "relation_id": "decree_99_2022_related_decree_21_2021",
+      "source": "security_registration_decree_99_2022",
+      "relation": "RELATED_TO",
+      "target": "secured_obligations_decree_21_2021",
+      "effective_date": "2023-01-15",
+      "scope": "legal_domain",
+      "affected_articles": [],
+      "topics": [
+        "biện pháp bảo đảm",
+        "đăng ký bảo đảm",
+        "thế chấp",
+        "tài sản bảo đảm"
+      ],
+      "description": "Nghị định 99/2022/NĐ-CP quy định về đăng ký biện pháp bảo đảm, liên quan trực tiếp đến các biện pháp bảo đảm được quy định tại Nghị định 21/2021/NĐ-CP."
+    },
+    {
+      "relation_id": "resolution_01_2019_guides_civil_code_2015",
+      "source": "interest_penalty_resolution_01_2019",
+      "relation": "GUIDES",
+      "target": "civil_code_2015",
+      "effective_date": "2019-03-15",
+      "scope": "legal_domain",
+      "affected_articles": [],
+      "topics": [
+        "hợp đồng vay tài sản",
+        "lãi",
+        "lãi suất",
+        "lãi chậm trả",
+        "phạt vi phạm"
+      ],
+      "description": "Nghị quyết 01/2019/NQ-HĐTP hướng dẫn áp dụng các quy định về lãi, lãi suất và phạt vi phạm liên quan đến Bộ luật Dân sự 2015."
+    },
+    {
+      "relation_id": "resolution_01_2019_guides_civil_code_2005",
+      "source": "interest_penalty_resolution_01_2019",
+      "relation": "GUIDES",
+      "target": "civil_code_2005",
+      "effective_date": "2019-03-15",
+      "scope": "legal_domain",
+      "affected_articles": [],
+      "topics": [
+        "hợp đồng vay tài sản",
+        "lãi",
+        "lãi suất",
+        "quan hệ dân sự lịch sử"
+      ],
+      "description": "Nghị quyết 01/2019/NQ-HĐTP hướng dẫn việc xác định lãi, lãi suất đối với các hợp đồng thuộc trường hợp áp dụng Bộ luật Dân sự 2005."
+    },
+    {
+      "relation_id": "resolution_02_2022_guides_civil_code_2015",
+      "source": "tort_compensation_resolution_02_2022",
+      "relation": "GUIDES",
+      "target": "civil_code_2015",
+      "effective_date": "2023-01-01",
+      "scope": "legal_domain",
+      "affected_articles": [
+        "584",
+        "585",
+        "586",
+        "588",
+        "589",
+        "590",
+        "591",
+        "592",
+        "598",
+        "599",
+        "601"
+      ],
+      "topics": [
+        "bồi thường thiệt hại ngoài hợp đồng",
+        "căn cứ phát sinh trách nhiệm",
+        "nguyên tắc bồi thường",
+        "thiệt hại do tài sản",
+        "thiệt hại do sức khỏe",
+        "thiệt hại do tính mạng",
+        "thiệt hại do danh dự nhân phẩm uy tín",
+        "nguồn nguy hiểm cao độ"
+      ],
+      "description": "Nghị quyết 02/2022/NQ-HĐTP hướng dẫn trực tiếp các quy định của Bộ luật Dân sự 2015 về trách nhiệm bồi thường thiệt hại ngoài hợp đồng."
+    },
+    {
+      "relation_id": "decree_19_2019_guides_civil_code_2015",
+      "source": "hui_decree_19_2019",
+      "relation": "GUIDES",
+      "target": "civil_code_2015",
+      "effective_date": "2019-04-05",
+      "scope": "article",
+      "affected_articles": [
+        "471"
+      ],
+      "topics": [
+        "họ hụi biêu phường",
+        "dây họ",
+        "chủ họ",
+        "thành viên họ",
+        "lãi suất trong họ",
+        "tranh chấp về họ"
+      ],
+      "description": "Nghị định 19/2019/NĐ-CP quy định chi tiết về họ, hụi, biêu, phường, liên quan trực tiếp đến Điều 471 Bộ luật Dân sự 2015."
+    },
+    {
+      "relation_id": "resolution_01_2020_related_civil_code_2015",
+      "source": "clan_property_resolution_01_2020",
+      "relation": "RELATED_TO",
+      "target": "civil_code_2015",
+      "effective_date": "2020-04-10",
+      "scope": "legal_domain",
+      "affected_articles": [],
+      "topics": [
+        "tài sản chung của dòng họ",
+        "thành viên dòng họ",
+        "tranh chấp tài sản",
+        "quyền và lợi ích hợp pháp"
+      ],
+      "description": "Nghị quyết 01/2020/NQ-HĐTP có nội dung dân sự liên quan đến việc xác định thành viên dòng họ và giải quyết tranh chấp về tài sản chung của dòng họ."
+    },
+    {
+      "relation_id": "resolution_01_2020_guides_civil_procedure_code_2015",
+      "source": "clan_property_resolution_01_2020",
+      "relation": "GUIDES",
+      "target": "civil_procedure_code_2015",
+      "effective_date": "2020-04-10",
+      "scope": "legal_domain",
+      "affected_articles": [
+        "192"
+      ],
+      "topics": [
+        "quyền khởi kiện",
+        "đương sự",
+        "nguyên đơn",
+        "bị đơn",
+        "người có quyền lợi nghĩa vụ liên quan",
+        "địa chỉ của người bị kiện",
+        "nhập vụ án"
+      ],
+      "description": "Nghị quyết 01/2020/NQ-HĐTP hướng dẫn các vấn đề tố tụng trong giải quyết tranh chấp tài sản chung của dòng họ; trong đó có nội dung liên quan trực tiếp đến Điều 192 Bộ luật Tố tụng dân sự 2015."
     }
   ]
 }

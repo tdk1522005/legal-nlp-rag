@@ -5,9 +5,16 @@ from dataclasses import dataclass
 from retrieval.exact_reference import normalize_text
 
 
+# Only use high-confidence out-of-scope phrases here.
+#
+# Do not use "thue" alone:
+# after accent normalization, both "thue" (tax) and
+# "thue" (rent/lease) become the same string.
 OUT_OF_SCOPE_PATTERNS = (
-    "thue ",
-    "thue",
+    "thue thu nhap",
+    "thue gia tri gia tang",
+    "nop thue",
+    "ma so thue",
     "le phi",
     "phi cong chung",
     "bao hiem xa hoi",
@@ -17,56 +24,174 @@ OUT_OF_SCOPE_PATTERNS = (
     "bi phat bao nhieu",
     "phat bao nhieu tien",
     "bao nhieu nam tu",
+    "ket hon",
+    "cam ket hon",
+    "ly hon",
 )
 
 
+# More specific phrases must be placed before broader phrases.
 LAW_SCOPE_PATTERNS = (
+    # -------------------------------------------------
+    # Security registration - Decree 99/2022
+    # -------------------------------------------------
+    (
+        "dang ky bien phap bao dam",
+        "security_registration_decree_99_2022",
+    ),
+    (
+        "xoa dang ky bien phap bao dam",
+        "security_registration_decree_99_2022",
+    ),
+    (
+        "dang ky the chap",
+        "security_registration_decree_99_2022",
+    ),
+    (
+        "xoa dang ky the chap",
+        "security_registration_decree_99_2022",
+    ),
+
+    # -------------------------------------------------
+    # Secured obligations - Decree 21/2021
+    # -------------------------------------------------
+    (
+        "bao dam thuc hien nghia vu",
+        "secured_obligations_decree_21_2021",
+    ),
+    (
+        "tai san bao dam",
+        "secured_obligations_decree_21_2021",
+    ),
+    (
+        "cam co tai san",
+        "secured_obligations_decree_21_2021",
+    ),
+    (
+        "cam giu tai san",
+        "secured_obligations_decree_21_2021",
+    ),
+    (
+        "the chap",
+        "secured_obligations_decree_21_2021",
+    ),
+    (
+        "bao lanh",
+        "secured_obligations_decree_21_2021",
+    ),
+    (
+        "dat coc",
+        "secured_obligations_decree_21_2021",
+    ),
+
+    # -------------------------------------------------
+    # Hui / ho / bieu / phuong - Decree 19/2019
+    # These must appear before generic interest rules.
+    # -------------------------------------------------
+    (
+        "ho hui bieu phuong",
+        "hui_decree_19_2019",
+    ),
+    (
+        "ho co lai",
+        "hui_decree_19_2019",
+    ),
+    (
+        "day ho",
+        "hui_decree_19_2019",
+    ),
+    (
+        "chu ho",
+        "hui_decree_19_2019",
+    ),
+    (
+        "hui",
+        "hui_decree_19_2019",
+    ),
+
+    # -------------------------------------------------
+    # Clan common property - Resolution 01/2020
+    # -------------------------------------------------
+    (
+        "tai san chung cua dong ho",
+        "clan_property_resolution_01_2020",
+    ),
+    (
+        "tranh chap tai san chung dong ho",
+        "clan_property_resolution_01_2020",
+    ),
+    (
+        "thanh vien dong ho",
+        "clan_property_resolution_01_2020",
+    ),
+
+    # -------------------------------------------------
+    # Tort compensation - Resolution 02/2022
+    # -------------------------------------------------
+    (
+        "boi thuong thiet hai ngoai hop dong",
+        "tort_compensation_resolution_02_2022",
+    ),
+    (
+        "nguon nguy hiem cao do",
+        "tort_compensation_resolution_02_2022",
+    ),
+    (
+        "suc khoe bi xam pham",
+        "tort_compensation_resolution_02_2022",
+    ),
+    (
+        "tinh mang bi xam pham",
+        "tort_compensation_resolution_02_2022",
+    ),
+    (
+        "danh du nhan pham uy tin bi xam pham",
+        "tort_compensation_resolution_02_2022",
+    ),
+
+    # -------------------------------------------------
+    # Interest / loan - Resolution 01/2019
+    # -------------------------------------------------
+    (
+        "lai no qua han",
+        "interest_penalty_resolution_01_2019",
+    ),
+    (
+        "lai cham tra",
+        "interest_penalty_resolution_01_2019",
+    ),
+    (
+        "lai suat",
+        "interest_penalty_resolution_01_2019",
+    ),
+    (
+        "phat vi pham",
+        "interest_penalty_resolution_01_2019",
+    ),
+    (
+        "hop dong vay",
+        "interest_penalty_resolution_01_2019",
+    ),
+
+    # -------------------------------------------------
+    # Generic civil transactions
+    # -------------------------------------------------
     (
         "giao dich dan su bi vo hieu",
+        "civil_code_2015",
+    ),
+    (
+        "hop dong thue tai san",
         "civil_code_2015",
     ),
     (
         "giao dich dan su",
         "civil_code_2015",
     ),
-    (
-        "cam ket hon",
-        "marriage_family_law_2014",
-    ),
-    (
-        "ket hon",
-        "marriage_family_law_2014",
-    ),
-    (
-        "hon nhan",
-        "marriage_family_law_2014",
-    ),
-    (
-        "quyen su dung dat",
-        "land_law_2024",
-    ),
-    (
-        "kinh doanh bat dong san",
-        "real_estate_business_law_2023",
-    ),
-    (
-        "cong chung vien",
-        "notary_law_2024",
-    ),
-    (
-        "cong chung",
-        "notary_law_2024",
-    ),
-    (
-        "nha o",
-        "housing_law_2023",
-    ),
 )
 
 
-@dataclass(
-    frozen=True
-)
+@dataclass(frozen=True)
 class LawScopeResult:
     law_id: str | None
     matched_phrase: str | None
@@ -74,28 +199,57 @@ class LawScopeResult:
     matched_out_of_scope_phrase: str | None
 
 
+# A detected scope is allowed to retrieve from several related laws.
+#
+# effective_law_ids will remove documents that were not legally
+# effective at the query date.
 LAW_SCOPE_EQUIVALENTS = {
     "civil_code_2015": (
         "civil_code_2005",
         "civil_code_2015",
     ),
+
     "civil_procedure_code_2015": (
         "civil_procedure_code_2015",
     ),
-    "housing_law_2023": (
-        "housing_law_2023",
+
+    "secured_obligations_decree_21_2021": (
+        "civil_code_2005",
+        "civil_code_2015",
+        "secured_obligations_decree_21_2021",
+        "security_registration_decree_99_2022",
     ),
-    "land_law_2024": (
-        "land_law_2024",
+
+    "security_registration_decree_99_2022": (
+        "civil_code_2005",
+        "civil_code_2015",
+        "secured_obligations_decree_21_2021",
+        "security_registration_decree_99_2022",
     ),
-    "marriage_family_law_2014": (
-        "marriage_family_law_2014",
+
+    "interest_penalty_resolution_01_2019": (
+        "civil_code_2005",
+        "civil_code_2015",
+        "interest_penalty_resolution_01_2019",
     ),
-    "notary_law_2024": (
-        "notary_law_2024",
+
+    "tort_compensation_resolution_02_2022": (
+        "civil_code_2005",
+        "civil_code_2015",
+        "tort_compensation_resolution_02_2022",
     ),
-    "real_estate_business_law_2023": (
-        "real_estate_business_law_2023",
+
+    "hui_decree_19_2019": (
+        "civil_code_2005",
+        "civil_code_2015",
+        "hui_decree_19_2019",
+    ),
+
+    "clan_property_resolution_01_2020": (
+        "civil_code_2005",
+        "civil_code_2015",
+        "civil_procedure_code_2015",
+        "clan_property_resolution_01_2020",
     ),
 }
 
@@ -105,35 +259,24 @@ def filter_effective_law_ids_by_scope(
     effective_law_ids: list[str],
 ) -> list[str]:
     """
-    Gi?i h?n c?c lu?t c? hi?u l?c theo ph?m vi c?u h?i.
+    Restrict effective laws only when a high-confidence legal
+    scope was detected.
 
-    V? d?:
-    - c?u h?i v? giao d?ch d?n s? ? hi?n t?i
-      -> civil_code_2015
-    - c?u h?i v? giao d?ch d?n s? n?m 2010
-      -> civil_code_2005
-
-    N?u kh?ng x?c ??nh ???c scope th? gi? nguy?n
-    danh s?ch lu?t c? hi?u l?c.
+    If no scope is detected, semantic retrieval keeps the full
+    effective-law candidate set.
     """
     if scope.is_out_of_scope:
         return []
 
     if scope.law_id is None:
-        return list(
-            effective_law_ids
-        )
+        return list(effective_law_ids)
 
-    candidate_law_ids = (
-        LAW_SCOPE_EQUIVALENTS.get(
-            scope.law_id,
-            (scope.law_id,),
-        )
+    candidate_law_ids = LAW_SCOPE_EQUIVALENTS.get(
+        scope.law_id,
+        (scope.law_id,),
     )
 
-    candidate_set = set(
-        candidate_law_ids
-    )
+    candidate_set = set(candidate_law_ids)
 
     return [
         law_id
@@ -145,14 +288,8 @@ def filter_effective_law_ids_by_scope(
 def detect_law_scope(
     query: str,
 ) -> LawScopeResult:
-    normalized_query = normalize_text(
-        query
-    )
+    normalized_query = normalize_text(query)
 
-    # -------------------------------------------------
-    # 1. C?c intent m? corpus hi?n t?i kh?ng ??
-    #    c?n c? ?? tr? l?i.
-    # -------------------------------------------------
     for pattern in OUT_OF_SCOPE_PATTERNS:
         if pattern in normalized_query:
             return LawScopeResult(
@@ -162,9 +299,6 @@ def detect_law_scope(
                 matched_out_of_scope_phrase=pattern,
             )
 
-    # -------------------------------------------------
-    # 2. Nh?n di?n ph?m vi lu?t t? thu?t ng? ph?p l?.
-    # -------------------------------------------------
     for phrase, law_id in LAW_SCOPE_PATTERNS:
         if phrase in normalized_query:
             return LawScopeResult(
@@ -174,12 +308,6 @@ def detect_law_scope(
                 matched_out_of_scope_phrase=None,
             )
 
-    # -------------------------------------------------
-    # 3. Kh?ng x?c ??nh ???c scope.
-    #
-    # Kh?ng ??ng ngh?a ch?c ch?n l? ngo?i corpus.
-    # Semantic retrieval v?n c? th? x? l? sau.
-    # -------------------------------------------------
     return LawScopeResult(
         law_id=None,
         matched_phrase=None,

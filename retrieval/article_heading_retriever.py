@@ -27,6 +27,56 @@ HEADING_STOP_WORDS = {
 }
 
 
+def _normalize_heading_query(
+    text: str,
+) -> str:
+    """
+    Normalize common Vietnamese question wrappers
+    before lexical article-heading matching.
+
+    This is used only by heading retrieval.
+    Qwen dense embedding is unchanged.
+    """
+    normalized = normalize_text(
+        text
+    )
+
+    replacements = (
+        (
+            "co hieu luc khi nao",
+            "dieu kien co hieu luc",
+        ),
+        (
+            "nhung truong hop nao phai",
+            "truong hop",
+        ),
+        (
+            "cac truong hop nao phai",
+            "truong hop",
+        ),
+        (
+            "truong hop nao phai",
+            "truong hop",
+        ),
+        (
+            "duoc quy dinh nhu the nao",
+            "quy dinh",
+        ),
+        (
+            "quy dinh nhu the nao",
+            "quy dinh",
+        ),
+    )
+
+    for old, new in replacements:
+        normalized = normalized.replace(
+            old,
+            new,
+        )
+
+    return normalized
+
+
 def _token_list(
     text: str,
 ) -> list[str]:
@@ -108,7 +158,9 @@ def score_article_heading(
     - intent bigram preservation
     """
     query_words = _token_list(
-        query
+        _normalize_heading_query(
+            query
+        )
     )
 
     heading_words = _token_list(

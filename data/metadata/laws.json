@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "last_updated": "2026-08-06",
+  "last_updated": "2026-08-28",
   "laws": [
     {
       "law_id": "civil_code_2015",
@@ -141,7 +141,7 @@
         "quan hệ cha mẹ con"
       ],
       "is_primary": false,
-      "default_retrieval": true,
+      "default_retrieval": false,
       "source_files": [
         "raw/current/marriage_family/52_2014_QH13_marriage_family_law_2014.docx"
       ],
@@ -178,7 +178,7 @@
         "thu hồi đất"
       ],
       "is_primary": false,
-      "default_retrieval": true,
+      "default_retrieval": false,
       "source_files": [
         "raw/current/land/31_2024_QH15_land_law_2024.docx"
       ],
@@ -225,7 +225,7 @@
         "quản lý chung cư"
       ],
       "is_primary": false,
-      "default_retrieval": true,
+      "default_retrieval": false,
       "source_files": [
         "raw/current/housing/27_2023_QH15_housing_law_2023.docx"
       ],
@@ -266,7 +266,7 @@
         "hợp đồng bất động sản"
       ],
       "is_primary": false,
-      "default_retrieval": true,
+      "default_retrieval": false,
       "source_files": [
         "raw/current/real_estate/29_2023_QH15_real_estate_business_law_2023.docx"
       ],
@@ -307,7 +307,7 @@
         "công chứng viên"
       ],
       "is_primary": false,
-      "default_retrieval": true,
+      "default_retrieval": false,
       "source_files": [
         "raw/current/notary/46_2024_QH15_notary_law_2024.docx"
       ],
@@ -359,6 +359,266 @@
       "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=170509",
       "status_checked_at": "2026-08-06",
       "notes": "Dùng để giải thích lịch sử sửa đổi; câu hỏi hiện hành ưu tiên các văn bản hợp nhất."
+    },
+    {
+      "law_id": "secured_obligations_decree_21_2021",
+      "title": "Nghị định 21/2021/NĐ-CP quy định thi hành Bộ luật Dân sự về bảo đảm thực hiện nghĩa vụ",
+      "short_title": "NĐ 21/2021/NĐ-CP",
+      "law_number": "21/2021/NĐ-CP",
+      "document_type": "Nghị định",
+      "document_role": "GUIDANCE",
+      "issuer": "Chính phủ",
+      "issued_date": "2021-03-19",
+      "effective_from": "2021-05-15",
+      "effective_to": null,
+      "status": "active",
+      "status_scope": "whole_document",
+      "legal_domains": [
+        "civil_law",
+        "secured_transactions"
+      ],
+      "topics": [
+        "bảo đảm thực hiện nghĩa vụ",
+        "tài sản bảo đảm",
+        "cầm cố tài sản",
+        "thế chấp tài sản",
+        "đặt cọc",
+        "ký cược",
+        "ký quỹ",
+        "bảo lãnh",
+        "cầm giữ tài sản",
+        "xử lý tài sản bảo đảm"
+      ],
+      "is_primary": false,
+      "default_retrieval": true,
+      "source_files": [
+        "raw/current/civil_guidance/21_2021_ND_CP_secured_obligations.docx"
+      ],
+      "retrieval_files": [
+        "raw/current/civil_guidance/21_2021_ND_CP_secured_obligations.docx"
+      ],
+      "consolidated_document": null,
+      "special_effective_dates": [],
+      "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=147004",
+      "status_checked_at": "2026-08-28",
+      "notes": "Văn bản hướng dẫn trực tiếp Bộ luật Dân sự 2015 về bảo đảm thực hiện nghĩa vụ."
+    },
+    {
+      "law_id": "security_registration_decree_99_2022",
+      "title": "Nghị định 99/2022/NĐ-CP về đăng ký biện pháp bảo đảm",
+      "short_title": "NĐ 99/2022/NĐ-CP",
+      "law_number": "99/2022/NĐ-CP",
+      "document_type": "Nghị định",
+      "document_role": "SECONDARY",
+      "issuer": "Chính phủ",
+      "issued_date": "2022-11-30",
+      "effective_from": "2023-01-15",
+      "effective_to": null,
+      "status": "partially_expired",
+      "status_scope": "partial",
+      "legal_domains": [
+        "civil_law",
+        "secured_transactions",
+        "security_registration"
+      ],
+      "topics": [
+        "đăng ký biện pháp bảo đảm",
+        "đăng ký thế chấp",
+        "xóa đăng ký",
+        "đăng ký thay đổi",
+        "cung cấp thông tin về biện pháp bảo đảm",
+        "tài sản bảo đảm",
+        "cơ quan đăng ký"
+      ],
+      "is_primary": false,
+      "default_retrieval": true,
+      "source_files": [
+        "raw/current/civil_guidance/2161_VBHN_BTP_2026_security_registration.docx"
+      ],
+      "retrieval_files": [
+        "raw/current/civil_guidance/2161_VBHN_BTP_2026_security_registration.docx"
+      ],
+      "consolidated_document": {
+        "document_number": "2161/VBHN-BTP",
+        "verified_date": "2026-04-07",
+        "source_file": "raw/current/civil_guidance/2161_VBHN_BTP_2026_security_registration.docx",
+        "source_url": "https://vbpl.vn/botuphap/Pages/vbpq-thuoctinh-hopnhat.aspx?ItemID=187976&dvid=41"
+      },
+      "special_effective_dates": [],
+      "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=159372",
+      "status_checked_at": "2026-08-28",
+      "notes": "Retrieval sử dụng văn bản hợp nhất 2161/VBHN-BTP ngày 07/04/2026, bao gồm các sửa đổi của Nghị định 18/2026/NĐ-CP."
+    },
+    {
+      "law_id": "interest_penalty_resolution_01_2019",
+      "title": "Nghị quyết 01/2019/NQ-HĐTP hướng dẫn áp dụng một số quy định của pháp luật về lãi, lãi suất, phạt vi phạm",
+      "short_title": "NQ 01/2019/NQ-HĐTP",
+      "law_number": "01/2019/NQ-HĐTP",
+      "document_type": "Nghị quyết",
+      "document_role": "GUIDANCE",
+      "issuer": "Hội đồng Thẩm phán Tòa án nhân dân tối cao",
+      "issued_date": "2019-01-11",
+      "effective_from": "2019-03-15",
+      "effective_to": null,
+      "status": "active",
+      "status_scope": "whole_document",
+      "legal_domains": [
+        "civil_law",
+        "obligations_contracts",
+        "loan_interest"
+      ],
+      "topics": [
+        "hợp đồng vay tài sản",
+        "lãi",
+        "lãi suất",
+        "lãi chậm trả",
+        "lãi nợ quá hạn",
+        "phạt vi phạm",
+        "không trả nợ đúng hạn",
+        "quyết định lãi trong bản án"
+      ],
+      "is_primary": false,
+      "default_retrieval": true,
+      "source_files": [
+        "raw/current/civil_guidance/01_2019_NQ_HDTP_interest_penalty.docx"
+      ],
+      "retrieval_files": [
+        "raw/current/civil_guidance/01_2019_NQ_HDTP_interest_penalty.docx"
+      ],
+      "consolidated_document": null,
+      "special_effective_dates": [],
+      "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=134278",
+      "status_checked_at": "2026-08-28",
+      "notes": "Hướng dẫn áp dụng pháp luật về lãi, lãi suất và phạt vi phạm; có nội dung hướng dẫn cả các quan hệ thuộc thời kỳ Bộ luật Dân sự 2005 và 2015."
+    },
+    {
+      "law_id": "tort_compensation_resolution_02_2022",
+      "title": "Nghị quyết 02/2022/NQ-HĐTP hướng dẫn áp dụng một số quy định của Bộ luật Dân sự về trách nhiệm bồi thường thiệt hại ngoài hợp đồng",
+      "short_title": "NQ 02/2022/NQ-HĐTP",
+      "law_number": "02/2022/NQ-HĐTP",
+      "document_type": "Nghị quyết",
+      "document_role": "GUIDANCE",
+      "issuer": "Hội đồng Thẩm phán Tòa án nhân dân tối cao",
+      "issued_date": "2022-09-06",
+      "effective_from": "2023-01-01",
+      "effective_to": null,
+      "status": "active",
+      "status_scope": "whole_document",
+      "legal_domains": [
+        "civil_law",
+        "tort_law",
+        "compensation"
+      ],
+      "topics": [
+        "bồi thường thiệt hại ngoài hợp đồng",
+        "căn cứ phát sinh trách nhiệm bồi thường",
+        "nguyên tắc bồi thường thiệt hại",
+        "thiệt hại do tài sản bị xâm phạm",
+        "thiệt hại do sức khỏe bị xâm phạm",
+        "thiệt hại do tính mạng bị xâm phạm",
+        "thiệt hại do danh dự nhân phẩm uy tín bị xâm phạm",
+        "nguồn nguy hiểm cao độ",
+        "thời hiệu khởi kiện bồi thường thiệt hại"
+      ],
+      "is_primary": false,
+      "default_retrieval": true,
+      "source_files": [
+        "raw/current/civil_guidance/02_2022_NQ_HDTP_tort_compensation.docx"
+      ],
+      "retrieval_files": [
+        "raw/current/civil_guidance/02_2022_NQ_HDTP_tort_compensation.docx"
+      ],
+      "consolidated_document": null,
+      "special_effective_dates": [],
+      "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=167688",
+      "status_checked_at": "2026-08-28",
+      "notes": "Hướng dẫn trực tiếp Chương XX Bộ luật Dân sự 2015 về trách nhiệm bồi thường thiệt hại ngoài hợp đồng; thay thế NQ 03/2006/NQ-HĐTP."
+    },
+    {
+      "law_id": "hui_decree_19_2019",
+      "title": "Nghị định 19/2019/NĐ-CP về họ, hụi, biêu, phường",
+      "short_title": "NĐ 19/2019/NĐ-CP",
+      "law_number": "19/2019/NĐ-CP",
+      "document_type": "Nghị định",
+      "document_role": "GUIDANCE",
+      "issuer": "Chính phủ",
+      "issued_date": "2019-02-19",
+      "effective_from": "2019-04-05",
+      "effective_to": null,
+      "status": "active",
+      "status_scope": "whole_document",
+      "legal_domains": [
+        "civil_law",
+        "obligations_contracts",
+        "hui"
+      ],
+      "topics": [
+        "họ hụi biêu phường",
+        "dây họ",
+        "chủ họ",
+        "thành viên họ",
+        "thỏa thuận về dây họ",
+        "lĩnh họ",
+        "lãi suất trong họ",
+        "chậm góp họ",
+        "chậm giao phần họ",
+        "tranh chấp về họ"
+      ],
+      "is_primary": false,
+      "default_retrieval": true,
+      "source_files": [
+        "raw/current/civil_guidance/19_2019_ND_CP_hui.docx"
+      ],
+      "retrieval_files": [
+        "raw/current/civil_guidance/19_2019_ND_CP_hui.docx"
+      ],
+      "consolidated_document": null,
+      "special_effective_dates": [],
+      "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=134279",
+      "status_checked_at": "2026-08-28",
+      "notes": "Quy định chi tiết về họ, hụi, biêu, phường; liên quan trực tiếp đến Điều 471 Bộ luật Dân sự 2015."
+    },
+    {
+      "law_id": "clan_property_resolution_01_2020",
+      "title": "Nghị quyết 01/2020/NQ-HĐTP hướng dẫn áp dụng một số quy định của pháp luật trong giải quyết tranh chấp về tài sản chung của dòng họ",
+      "short_title": "NQ 01/2020/NQ-HĐTP",
+      "law_number": "01/2020/NQ-HĐTP",
+      "document_type": "Nghị quyết",
+      "document_role": "GUIDANCE",
+      "issuer": "Hội đồng Thẩm phán Tòa án nhân dân tối cao",
+      "issued_date": "2020-03-05",
+      "effective_from": "2020-04-10",
+      "effective_to": null,
+      "status": "active",
+      "status_scope": "whole_document",
+      "legal_domains": [
+        "civil_law",
+        "civil_procedure",
+        "clan_common_property"
+      ],
+      "topics": [
+        "tài sản chung của dòng họ",
+        "thành viên dòng họ",
+        "tranh chấp tài sản chung của dòng họ",
+        "quyền khởi kiện",
+        "đương sự trong vụ án",
+        "người có quyền lợi nghĩa vụ liên quan",
+        "địa chỉ của người bị kiện",
+        "nhập vụ án"
+      ],
+      "is_primary": false,
+      "default_retrieval": true,
+      "source_files": [
+        "raw/current/civil_guidance/01_2020_NQ_HDTP_clan_property.docx"
+      ],
+      "retrieval_files": [
+        "raw/current/civil_guidance/01_2020_NQ_HDTP_clan_property.docx"
+      ],
+      "consolidated_document": null,
+      "special_effective_dates": [],
+      "source_url": "https://vbpl.vn/TW/Pages/vbpq-thuoctinh.aspx?ItemID=141135",
+      "status_checked_at": "2026-08-28",
+      "notes": "Hướng dẫn giải quyết tranh chấp về tài sản chung của dòng họ; có nội dung liên quan đến cả Bộ luật Dân sự 2015 và Bộ luật Tố tụng dân sự 2015."
     }
   ]
 }

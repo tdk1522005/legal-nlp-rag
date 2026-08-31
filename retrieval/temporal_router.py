@@ -321,8 +321,7 @@ class TemporalRetrievalRouter:
             # -------------------------------------------------
 
             use_article_heading = (
-                clean_query.isascii()
-                and law_scope.law_id is not None
+                law_scope.law_id is not None
                 and not law_scope.is_out_of_scope
                 and bool(retrieval_law_ids)
             )
@@ -334,12 +333,21 @@ class TemporalRetrievalRouter:
                     [],
                 )
 
+                scoped_heading_law_ids = (
+                    [law_scope.law_id]
+                    if (
+                        law_scope.law_id
+                        in retrieval_law_ids
+                    )
+                    else retrieval_law_ids
+                )
+
                 heading_candidates = (
                     rank_article_headings(
                         query=clean_query,
                         documents=store_documents,
                         allowed_law_ids=(
-                            retrieval_law_ids
+                            scoped_heading_law_ids
                         ),
                         scope_phrase=(
                             law_scope.matched_phrase
@@ -363,7 +371,7 @@ class TemporalRetrievalRouter:
                     # High precision gate.
                     # Chi promote khi tieu de Dieu
                     # khop rat manh voi query.
-                    if heading_score >= 0.90:
+                    if heading_score >= 0.82:
                         article_heading_match = (
                             best_heading
                         )
@@ -375,14 +383,21 @@ class TemporalRetrievalRouter:
                             )
                         )
 
+                        heading_law_id = str(
+                            best_heading.get(
+                                "law_id",
+                                "",
+                            )
+                        )
+
                         heading_results = (
                             selected_retriever.retrieve(
                                 query=clean_query,
                                 top_k=top_k,
                                 filters={
-                                    "law_id": (
-                                        retrieval_law_ids
-                                    ),
+                                    "law_id": [
+                                        heading_law_id
+                                    ],
                                     "article_number": (
                                         heading_article
                                     ),

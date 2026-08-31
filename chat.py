@@ -353,7 +353,7 @@ def print_validity_report(
 
 
 SEMANTIC_MIN_SCORE = 0.65
-ARTICLE_HEADING_MIN_SCORE = 0.90
+ARTICLE_HEADING_MIN_SCORE = 0.82
 
 RELEVANCE_FALLBACK_MESSAGE = (
     "Tôi chưa tìm thấy đủ căn cứ "

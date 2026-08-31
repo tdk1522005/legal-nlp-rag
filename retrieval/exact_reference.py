@@ -6,15 +6,25 @@ from dataclasses import dataclass
 
 
 LAW_ALIASES = {
+    # -------------------------------------------------
+    # Civil codes
+    # -------------------------------------------------
     "civil_code_2005": (
         "bo luat dan su 2005",
+        "blds 2005",
     ),
     "civil_code_2015": (
         "bo luat dan su 2015",
+        "blds 2015",
     ),
     "civil_procedure_code_2015": (
         "bo luat to tung dan su 2015",
+        "blttds 2015",
     ),
+
+    # -------------------------------------------------
+    # Existing sectoral / historical documents
+    # -------------------------------------------------
     "housing_law_2023": (
         "luat nha o 2023",
     ),
@@ -31,6 +41,63 @@ LAW_ALIASES = {
     "real_estate_business_law_2023": (
         "luat kinh doanh bat dong san 2023",
     ),
+
+    # -------------------------------------------------
+    # Decree 21/2021/ND-CP
+    # -------------------------------------------------
+    "secured_obligations_decree_21_2021": (
+        "nghi dinh 21 2021 nd cp",
+        "nd 21 2021 nd cp",
+        "nghi dinh 21 2021",
+    ),
+
+    # -------------------------------------------------
+    # Decree 99/2022/ND-CP
+    # Retrieval uses consolidated document 2161/VBHN-BTP.
+    # -------------------------------------------------
+    "security_registration_decree_99_2022": (
+        "nghi dinh 99 2022 nd cp",
+        "nd 99 2022 nd cp",
+        "nghi dinh 99 2022",
+        "2161 vbhn btp",
+        "vbhn 2161 btp",
+    ),
+
+    # -------------------------------------------------
+    # Resolution 01/2019/NQ-HDTP
+    # -------------------------------------------------
+    "interest_penalty_resolution_01_2019": (
+        "nghi quyet 01 2019 nq hdtp",
+        "nq 01 2019 nq hdtp",
+        "nghi quyet 01 2019",
+    ),
+
+    # -------------------------------------------------
+    # Resolution 02/2022/NQ-HDTP
+    # -------------------------------------------------
+    "tort_compensation_resolution_02_2022": (
+        "nghi quyet 02 2022 nq hdtp",
+        "nq 02 2022 nq hdtp",
+        "nghi quyet 02 2022",
+    ),
+
+    # -------------------------------------------------
+    # Decree 19/2019/ND-CP
+    # -------------------------------------------------
+    "hui_decree_19_2019": (
+        "nghi dinh 19 2019 nd cp",
+        "nd 19 2019 nd cp",
+        "nghi dinh 19 2019",
+    ),
+
+    # -------------------------------------------------
+    # Resolution 01/2020/NQ-HDTP
+    # -------------------------------------------------
+    "clan_property_resolution_01_2020": (
+        "nghi quyet 01 2020 nq hdtp",
+        "nq 01 2020 nq hdtp",
+        "nghi quyet 01 2020",
+    ),
 }
 
 
@@ -39,9 +106,18 @@ LAW_FAMILY_ALIASES = {
         "civil_code_2005",
         "civil_code_2015",
     ),
+    "blds": (
+        "civil_code_2005",
+        "civil_code_2015",
+    ),
     "bo luat to tung dan su": (
         "civil_procedure_code_2015",
     ),
+    "blttds": (
+        "civil_procedure_code_2015",
+    ),
+
+    # Existing sectoral documents
     "luat nha o": (
         "housing_law_2023",
     ),
@@ -60,12 +136,30 @@ LAW_FAMILY_ALIASES = {
     "luat kinh doanh bat dong san": (
         "real_estate_business_law_2023",
     ),
+
+    # New civil-law guidance documents
+    "nghi dinh ve bao dam thuc hien nghia vu": (
+        "secured_obligations_decree_21_2021",
+    ),
+    "nghi dinh ve dang ky bien phap bao dam": (
+        "security_registration_decree_99_2022",
+    ),
+    "nghi quyet ve lai lai suat phat vi pham": (
+        "interest_penalty_resolution_01_2019",
+    ),
+    "nghi quyet ve boi thuong thiet hai ngoai hop dong": (
+        "tort_compensation_resolution_02_2022",
+    ),
+    "nghi dinh ve ho hui bieu phuong": (
+        "hui_decree_19_2019",
+    ),
+    "nghi quyet ve tai san chung cua dong ho": (
+        "clan_property_resolution_01_2020",
+    ),
 }
 
 
-@dataclass(
-    frozen=True
-)
+@dataclass(frozen=True)
 class ExactLegalReference:
     law_id: str
     article_number: str
@@ -114,9 +208,7 @@ def resolve_exact_legal_reference(
         | None
     ) = None,
 ) -> ExactLegalReference | None:
-    normalized_query = normalize_text(
-        query
-    )
+    normalized_query = normalize_text(query)
 
     article_match = re.search(
         r"\bdieu\s+([0-9]+[a-z]?)\b",
@@ -126,34 +218,35 @@ def resolve_exact_legal_reference(
     if article_match is None:
         return None
 
-    article_number = (
-        article_match.group(1)
-    )
+    article_number = article_match.group(1)
 
     # -------------------------------------------------
-    # 1. N?u ng??i d?ng ghi r? t?n lu?t + n?m ban h?nh
-    #    th? ?u ti?n ch?nh x?c lu?t ??.
+    # 1. Explicit document identifier.
+    #
+    # Example:
+    # "Dieu 21 Nghi dinh 19/2019/ND-CP"
+    #
+    # Explicit document references are resolved directly,
+    # including historical documents.
     # -------------------------------------------------
-    for law_id, aliases in (
-        LAW_ALIASES.items()
-    ):
+    for law_id, aliases in LAW_ALIASES.items():
         if any(
             alias in normalized_query
             for alias in aliases
         ):
             return ExactLegalReference(
                 law_id=law_id,
-                article_number=(
-                    article_number
-                ),
+                article_number=article_number,
             )
 
     # -------------------------------------------------
-    # 2. N?u ch? ghi t?n lu?t, v? d?:
-    #    "?i?u 122 B? lu?t D?n s?"
+    # 2. Document family / descriptive title.
     #
-    #    Ch? resolve khi b?n ngo?i ?? x?c ??nh
-    #    ???c danh s?ch lu?t ph? h?p theo th?i ?i?m.
+    # Example:
+    # "Dieu 122 Bo luat Dan su"
+    #
+    # Resolve only when the legal date leaves exactly
+    # one matching document in allowed_law_ids.
     # -------------------------------------------------
     if allowed_law_ids is None:
         return None
@@ -178,9 +271,7 @@ def resolve_exact_legal_reference(
         if len(matching_laws) == 1:
             return ExactLegalReference(
                 law_id=matching_laws[0],
-                article_number=(
-                    article_number
-                ),
+                article_number=article_number,
             )
 
     return None

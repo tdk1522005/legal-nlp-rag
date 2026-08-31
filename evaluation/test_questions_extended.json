@@ -10,35 +10,52 @@
   {
     "id": "sa002",
     "category": "semantic_accent",
-    "question": "\u0110i\u1ec1u ki\u1ec7n k\u1ebft h\u00f4n \u0111\u01b0\u1ee3c quy \u0111\u1ecbnh nh\u01b0 th\u1ebf n\u00e0o?",
+    "question": "Quy\u1ec1n truy \u0111\u00f2i t\u00e0i s\u1ea3n b\u1ea3o \u0111\u1ea3m \u0111\u01b0\u1ee3c quy \u0111\u1ecbnh nh\u01b0 th\u1ebf n\u00e0o?",
     "expected_relevant": true,
-    "expected_law_id": "marriage_family_law_2014",
-    "expected_article": "8"
+    "expected_law_id": "secured_obligations_decree_21_2021",
+    "expected_article": "7"
   },
   {
     "id": "sa003",
     "category": "semantic_accent",
-    "question": "C\u00f4ng ch\u1ee9ng vi\u00ean c\u00f3 quy\u1ec1n v\u00e0 ngh\u0129a v\u1ee5 g\u00ec?",
+    "question": "Nh\u1eefng tr\u01b0\u1eddng h\u1ee3p n\u00e0o ph\u1ea3i \u0111\u0103ng k\u00fd bi\u1ec7n ph\u00e1p b\u1ea3o \u0111\u1ea3m?",
     "expected_relevant": true,
-    "expected_law_id": "notary_law_2024",
-    "expected_article": "18"
+    "expected_law_id": "security_registration_decree_99_2022",
+    "expected_article": "4"
   },
   {
     "id": "sa004",
     "category": "semantic_accent",
-    "question": "\u0110i\u1ec1u ki\u1ec7n \u0111\u1ed1i v\u1edbi t\u1ed5 ch\u1ee9c, c\u00e1 nh\u00e2n khi kinh doanh b\u1ea5t \u0111\u1ed9ng s\u1ea3n l\u00e0 g\u00ec?",
+    "question": "X\u00e1c \u0111\u1ecbnh l\u00e3i, l\u00e3i su\u1ea5t trong h\u1ee3p \u0111\u1ed3ng vay t\u00e0i s\u1ea3n \u00e1p d\u1ee5ng B\u1ed9 lu\u1eadt D\u00e2n s\u1ef1 2015 nh\u01b0 th\u1ebf n\u00e0o?",
     "expected_relevant": true,
-    "expected_law_id": "real_estate_business_law_2023",
-    "expected_article": "9"
+    "expected_law_id": "interest_penalty_resolution_01_2019",
+    "expected_article": "5"
   },
   {
     "id": "sa005",
     "category": "semantic_accent",
-    "question": "Nh\u00e0 \u1edf tham gia giao d\u1ecbch ph\u1ea3i \u0111\u00e1p \u1ee9ng nh\u1eefng \u0111i\u1ec1u ki\u1ec7n n\u00e0o?",
+    "question": "B\u1ed3i th\u01b0\u1eddng thi\u1ec7t h\u1ea1i do ngu\u1ed3n nguy hi\u1ec3m cao \u0111\u1ed9 \u0111\u01b0\u1ee3c quy \u0111\u1ecbnh nh\u01b0 th\u1ebf n\u00e0o?",
     "expected_relevant": true,
-    "expected_law_id": "housing_law_2023",
-    "expected_article": "160"
+    "expected_law_id": "tort_compensation_resolution_02_2022",
+    "expected_article": "12"
   },
+  {
+    "id": "sa006",
+    "category": "semantic_accent",
+    "question": "L\u00e3i su\u1ea5t trong h\u1ecd c\u00f3 l\u00e3i \u0111\u01b0\u1ee3c quy \u0111\u1ecbnh nh\u01b0 th\u1ebf n\u00e0o?",
+    "expected_relevant": true,
+    "expected_law_id": "hui_decree_19_2019",
+    "expected_article": "21"
+  },
+  {
+    "id": "sa007",
+    "category": "semantic_accent",
+    "question": "Th\u00e0nh vi\u00ean d\u00f2ng h\u1ecd c\u00f3 quy\u1ec1n kh\u1edfi ki\u1ec7n tranh ch\u1ea5p v\u1ec1 t\u00e0i s\u1ea3n chung c\u1ee7a d\u00f2ng h\u1ecd nh\u01b0 th\u1ebf n\u00e0o?",
+    "expected_relevant": true,
+    "expected_law_id": "clan_property_resolution_01_2020",
+    "expected_article": "3"
+  },
+
   {
     "id": "sn001",
     "category": "semantic_no_accent",
@@ -50,35 +67,52 @@
   {
     "id": "sn002",
     "category": "semantic_no_accent",
-    "question": "dieu kien ket hon la gi",
+    "question": "quyen truy doi tai san bao dam",
     "expected_relevant": true,
-    "expected_law_id": "marriage_family_law_2014",
-    "expected_article": "8"
+    "expected_law_id": "secured_obligations_decree_21_2021",
+    "expected_article": "7"
   },
   {
     "id": "sn003",
     "category": "semantic_no_accent",
-    "question": "cong chung vien co quyen va nghia vu gi",
+    "question": "cac truong hop dang ky bien phap bao dam",
     "expected_relevant": true,
-    "expected_law_id": "notary_law_2024",
-    "expected_article": "18"
+    "expected_law_id": "security_registration_decree_99_2022",
+    "expected_article": "4"
   },
   {
     "id": "sn004",
     "category": "semantic_no_accent",
-    "question": "dieu kien kinh doanh bat dong san la gi",
+    "question": "lai suat hop dong vay tai san theo bo luat dan su 2015",
     "expected_relevant": true,
-    "expected_law_id": "real_estate_business_law_2023",
-    "expected_article": "9"
+    "expected_law_id": "interest_penalty_resolution_01_2019",
+    "expected_article": "5"
   },
   {
     "id": "sn005",
     "category": "semantic_no_accent",
-    "question": "nha o tham gia giao dich phai dap ung dieu kien nao",
+    "question": "boi thuong thiet hai do nguon nguy hiem cao do",
     "expected_relevant": true,
-    "expected_law_id": "housing_law_2023",
-    "expected_article": "160"
+    "expected_law_id": "tort_compensation_resolution_02_2022",
+    "expected_article": "12"
   },
+  {
+    "id": "sn006",
+    "category": "semantic_no_accent",
+    "question": "lai suat trong ho co lai",
+    "expected_relevant": true,
+    "expected_law_id": "hui_decree_19_2019",
+    "expected_article": "21"
+  },
+  {
+    "id": "sn007",
+    "category": "semantic_no_accent",
+    "question": "quyen khoi kien tranh chap tai san chung cua dong ho",
+    "expected_relevant": true,
+    "expected_law_id": "clan_property_resolution_01_2020",
+    "expected_article": "3"
+  },
+
   {
     "id": "ex001",
     "category": "exact_reference",
@@ -90,21 +124,61 @@
   {
     "id": "ex002",
     "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 18 Lu\u1eadt C\u00f4ng ch\u1ee9ng 2024 quy \u0111\u1ecbnh g\u00ec?",
+    "question": "\u0110i\u1ec1u 7 Ngh\u1ecb \u0111\u1ecbnh 21/2021/N\u0110-CP quy \u0111\u1ecbnh g\u00ec?",
     "expected_relevant": true,
-    "expected_law_id": "notary_law_2024",
-    "expected_article": "18"
+    "expected_law_id": "secured_obligations_decree_21_2021",
+    "expected_article": "7"
   },
   {
     "id": "ex003",
     "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 160 Lu\u1eadt Nh\u00e0 \u1edf 2023 quy \u0111\u1ecbnh g\u00ec?",
+    "question": "\u0110i\u1ec1u 4 Ngh\u1ecb \u0111\u1ecbnh 99/2022/N\u0110-CP quy \u0111\u1ecbnh g\u00ec?",
     "expected_relevant": true,
-    "expected_law_id": "housing_law_2023",
-    "expected_article": "160"
+    "expected_law_id": "security_registration_decree_99_2022",
+    "expected_article": "4"
   },
   {
     "id": "ex004",
+    "category": "exact_reference",
+    "question": "\u0110i\u1ec1u 5 Ngh\u1ecb quy\u1ebft 01/2019/NQ-H\u0110TP quy \u0111\u1ecbnh g\u00ec?",
+    "expected_relevant": true,
+    "expected_law_id": "interest_penalty_resolution_01_2019",
+    "expected_article": "5"
+  },
+  {
+    "id": "ex005",
+    "category": "exact_reference",
+    "question": "\u0110i\u1ec1u 12 Ngh\u1ecb quy\u1ebft 02/2022/NQ-H\u0110TP quy \u0111\u1ecbnh g\u00ec?",
+    "expected_relevant": true,
+    "expected_law_id": "tort_compensation_resolution_02_2022",
+    "expected_article": "12"
+  },
+  {
+    "id": "ex006",
+    "category": "exact_reference",
+    "question": "\u0110i\u1ec1u 21 Ngh\u1ecb \u0111\u1ecbnh 19/2019/N\u0110-CP quy \u0111\u1ecbnh g\u00ec?",
+    "expected_relevant": true,
+    "expected_law_id": "hui_decree_19_2019",
+    "expected_article": "21"
+  },
+  {
+    "id": "ex007",
+    "category": "exact_reference",
+    "question": "\u0110i\u1ec1u 3 Ngh\u1ecb quy\u1ebft 01/2020/NQ-H\u0110TP quy \u0111\u1ecbnh g\u00ec?",
+    "expected_relevant": true,
+    "expected_law_id": "clan_property_resolution_01_2020",
+    "expected_article": "3"
+  },
+  {
+    "id": "ex008",
+    "category": "exact_reference",
+    "question": "\u0110i\u1ec1u 192 B\u1ed9 lu\u1eadt T\u1ed1 t\u1ee5ng d\u00e2n s\u1ef1 2015 quy \u0111\u1ecbnh g\u00ec?",
+    "expected_relevant": true,
+    "expected_law_id": "civil_procedure_code_2015",
+    "expected_article": "192"
+  },
+  {
+    "id": "ex009",
     "category": "exact_reference",
     "question": "\u0110i\u1ec1u 122 B\u1ed9 lu\u1eadt D\u00e2n s\u1ef1 2005 quy \u0111\u1ecbnh g\u00ec?",
     "expected_relevant": true,
@@ -112,23 +186,41 @@
     "expected_article": "122"
   },
   {
-    "id": "ex005",
+    "id": "ex010",
     "category": "exact_reference",
     "question": "N\u0103m 2010 \u0110i\u1ec1u 122 B\u1ed9 lu\u1eadt D\u00e2n s\u1ef1 quy \u0111\u1ecbnh g\u00ec?",
     "expected_relevant": true,
     "expected_law_id": "civil_code_2005",
     "expected_article": "122"
   },
+
+  {
+    "id": "rg001",
+    "category": "scope_regression",
+    "question": "H\u1ee3p \u0111\u1ed3ng thu\u00ea t\u00e0i s\u1ea3n l\u00e0 g\u00ec?",
+    "expected_relevant": true,
+    "expected_law_id": "civil_code_2015",
+    "expected_article": "472"
+  },
+  {
+    "id": "rg002",
+    "category": "scope_regression",
+    "question": "hop dong thue tai san la gi",
+    "expected_relevant": true,
+    "expected_law_id": "civil_code_2015",
+    "expected_article": "472"
+  },
+
   {
     "id": "ood001",
     "category": "out_of_domain",
-    "question": "thu\u1ebf khi b\u00e1n nh\u00e0 \u0111\u1ea5t l\u00e0 bao nhi\u00eau",
+    "question": "thu\u1ebf thu nh\u1eadp c\u00e1 nh\u00e2n khi b\u00e1n nh\u00e0 \u0111\u1ea5t l\u00e0 bao nhi\u00eau",
     "expected_relevant": false
   },
   {
     "id": "ood002",
     "category": "out_of_domain",
-    "question": "thu\u1ebf thu nh\u1eadp c\u00e1 nh\u00e2n l\u00e0 g\u00ec",
+    "question": "m\u00e3 s\u1ed1 thu\u1ebf c\u00e1 nh\u00e2n \u0111\u0103ng k\u00fd nh\u01b0 th\u1ebf n\u00e0o",
     "expected_relevant": false
   },
   {
@@ -152,19 +244,19 @@
   {
     "id": "ood006",
     "category": "out_of_domain",
-    "question": "phi cong chung hop dong mua ban nha dat la bao nhieu",
+    "question": "ph\u00ed c\u00f4ng ch\u1ee9ng h\u1ee3p \u0111\u1ed3ng mua b\u00e1n nh\u00e0 \u0111\u1ea5t l\u00e0 bao nhi\u00eau",
     "expected_relevant": false
   },
   {
     "id": "ood007",
     "category": "out_of_domain",
-    "question": "giao dich dan su phai dong thue bao nhieu",
+    "question": "k\u1ebft h\u00f4n c\u1ea7n \u0111i\u1ec1u ki\u1ec7n g\u00ec",
     "expected_relevant": false
   },
   {
     "id": "ood008",
     "category": "out_of_domain",
-    "question": "cong chung vien mua dat co phai dong thue khong",
+    "question": "b\u1ea3o hi\u1ec3m x\u00e3 h\u1ed9i \u0111\u00f3ng bao nhi\u00eau ph\u1ea7n tr\u0103m",
     "expected_relevant": false
   }
 ]
