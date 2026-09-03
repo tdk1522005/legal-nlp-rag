@@ -144,8 +144,8 @@ def build_parsed_output_path(
 
     Nếu có nhiều retrieval file:
 
-        housing_law_2023__01__part_1.json
-        housing_law_2023__02__part_2.json
+        example_law__01__part_1.json
+        example_law__02__part_2.json
     """
     if source_count == 1:
         return (

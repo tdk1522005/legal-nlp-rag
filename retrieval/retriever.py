@@ -48,7 +48,7 @@ class Retriever:
 
             {"law_id": [
                 "civil_code_2015",
-                "land_law_2024",
+                "secured_obligations_decree_21_2021",
             ]}
 
         candidate_k:

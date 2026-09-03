@@ -503,9 +503,9 @@ class LawGraph:
         Trong JSON chỉ cần lưu một cạnh:
             civil_code_2015
                 --RELATED_TO-->
-            land_law_2024
+            secured_obligations_decree_21_2021
 
-        Nhưng khi hỏi từ land_law_2024, hệ thống vẫn
+        Nhưng khi hỏi từ secured_obligations_decree_21_2021, hệ thống vẫn
         tìm thấy civil_code_2015.
         """
         law_id = self.resolve_law_id(

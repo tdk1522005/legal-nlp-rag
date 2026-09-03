@@ -23,24 +23,7 @@ LAW_ALIASES = {
     ),
 
     # -------------------------------------------------
-    # Existing sectoral / historical documents
     # -------------------------------------------------
-    "housing_law_2023": (
-        "luat nha o 2023",
-    ),
-    "land_law_2024": (
-        "luat dat dai 2024",
-    ),
-    "marriage_family_law_2014": (
-        "luat hon nhan va gia dinh 2014",
-        "luat hon nhan gia dinh 2014",
-    ),
-    "notary_law_2024": (
-        "luat cong chung 2024",
-    ),
-    "real_estate_business_law_2023": (
-        "luat kinh doanh bat dong san 2023",
-    ),
 
     # -------------------------------------------------
     # Decree 21/2021/ND-CP
@@ -117,25 +100,6 @@ LAW_FAMILY_ALIASES = {
         "civil_procedure_code_2015",
     ),
 
-    # Existing sectoral documents
-    "luat nha o": (
-        "housing_law_2023",
-    ),
-    "luat dat dai": (
-        "land_law_2024",
-    ),
-    "luat hon nhan va gia dinh": (
-        "marriage_family_law_2014",
-    ),
-    "luat hon nhan gia dinh": (
-        "marriage_family_law_2014",
-    ),
-    "luat cong chung": (
-        "notary_law_2024",
-    ),
-    "luat kinh doanh bat dong san": (
-        "real_estate_business_law_2023",
-    ),
 
     # New civil-law guidance documents
     "nghi dinh ve bao dam thuc hien nghia vu": (
