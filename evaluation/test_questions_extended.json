@@ -1,262 +1,87 @@
 [
-  {
-    "id": "sa001",
-    "category": "semantic_accent",
-    "question": "\u0110i\u1ec1u ki\u1ec7n \u0111\u1ec3 giao d\u1ecbch d\u00e2n s\u1ef1 c\u00f3 hi\u1ec7u l\u1ef1c l\u00e0 g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "civil_code_2015",
-    "expected_article": "117"
-  },
-  {
-    "id": "sa002",
-    "category": "semantic_accent",
-    "question": "Quy\u1ec1n truy \u0111\u00f2i t\u00e0i s\u1ea3n b\u1ea3o \u0111\u1ea3m \u0111\u01b0\u1ee3c quy \u0111\u1ecbnh nh\u01b0 th\u1ebf n\u00e0o?",
-    "expected_relevant": true,
-    "expected_law_id": "secured_obligations_decree_21_2021",
-    "expected_article": "7"
-  },
-  {
-    "id": "sa003",
-    "category": "semantic_accent",
-    "question": "Nh\u1eefng tr\u01b0\u1eddng h\u1ee3p n\u00e0o ph\u1ea3i \u0111\u0103ng k\u00fd bi\u1ec7n ph\u00e1p b\u1ea3o \u0111\u1ea3m?",
-    "expected_relevant": true,
-    "expected_law_id": "security_registration_decree_99_2022",
-    "expected_article": "4"
-  },
-  {
-    "id": "sa004",
-    "category": "semantic_accent",
-    "question": "X\u00e1c \u0111\u1ecbnh l\u00e3i, l\u00e3i su\u1ea5t trong h\u1ee3p \u0111\u1ed3ng vay t\u00e0i s\u1ea3n \u00e1p d\u1ee5ng B\u1ed9 lu\u1eadt D\u00e2n s\u1ef1 2015 nh\u01b0 th\u1ebf n\u00e0o?",
-    "expected_relevant": true,
-    "expected_law_id": "interest_penalty_resolution_01_2019",
-    "expected_article": "5"
-  },
-  {
-    "id": "sa005",
-    "category": "semantic_accent",
-    "question": "B\u1ed3i th\u01b0\u1eddng thi\u1ec7t h\u1ea1i do ngu\u1ed3n nguy hi\u1ec3m cao \u0111\u1ed9 \u0111\u01b0\u1ee3c quy \u0111\u1ecbnh nh\u01b0 th\u1ebf n\u00e0o?",
-    "expected_relevant": true,
-    "expected_law_id": "tort_compensation_resolution_02_2022",
-    "expected_article": "12"
-  },
-  {
-    "id": "sa006",
-    "category": "semantic_accent",
-    "question": "L\u00e3i su\u1ea5t trong h\u1ecd c\u00f3 l\u00e3i \u0111\u01b0\u1ee3c quy \u0111\u1ecbnh nh\u01b0 th\u1ebf n\u00e0o?",
-    "expected_relevant": true,
-    "expected_law_id": "hui_decree_19_2019",
-    "expected_article": "21"
-  },
-  {
-    "id": "sa007",
-    "category": "semantic_accent",
-    "question": "Th\u00e0nh vi\u00ean d\u00f2ng h\u1ecd c\u00f3 quy\u1ec1n kh\u1edfi ki\u1ec7n tranh ch\u1ea5p v\u1ec1 t\u00e0i s\u1ea3n chung c\u1ee7a d\u00f2ng h\u1ecd nh\u01b0 th\u1ebf n\u00e0o?",
-    "expected_relevant": true,
-    "expected_law_id": "clan_property_resolution_01_2020",
-    "expected_article": "3"
-  },
+  {"id":"sa001","category":"semantic_accent","question":"Điều kiện để giao dịch dân sự có hiệu lực là gì?","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"sa002","category":"semantic_accent","question":"Quyền truy đòi tài sản bảo đảm được quy định như thế nào?","expected_relevant":true,"expected_law_id":"secured_obligations_decree_21_2021","expected_article":"7"},
+  {"id":"sa003","category":"semantic_accent","question":"Những trường hợp nào phải đăng ký biện pháp bảo đảm?","expected_relevant":true,"expected_law_id":"security_registration_decree_99_2022","expected_article":"4"},
+  {"id":"sa004","category":"semantic_accent","question":"Xác định lãi, lãi suất trong hợp đồng vay tài sản áp dụng Bộ luật Dân sự 2015 như thế nào?","expected_relevant":true,"expected_law_id":"interest_penalty_resolution_01_2019","expected_article":"5"},
+  {"id":"sa005","category":"semantic_accent","question":"Bồi thường thiệt hại do nguồn nguy hiểm cao độ được quy định như thế nào?","expected_relevant":true,"expected_law_id":"tort_compensation_resolution_02_2022","expected_article":"12"},
+  {"id":"sa006","category":"semantic_accent","question":"Lãi suất trong họ có lãi được quy định như thế nào?","expected_relevant":true,"expected_law_id":"hui_decree_19_2019","expected_article":"21"},
+  {"id":"sa007","category":"semantic_accent","question":"Thành viên dòng họ có quyền khởi kiện tranh chấp về tài sản chung của dòng họ như thế nào?","expected_relevant":true,"expected_law_id":"clan_property_resolution_01_2020","expected_article":"3"},
+  {"id":"sn001","category":"semantic_no_accent","question":"giao dich dan su co hieu luc khi nao","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"sn002","category":"semantic_no_accent","question":"quyen truy doi tai san bao dam","expected_relevant":true,"expected_law_id":"secured_obligations_decree_21_2021","expected_article":"7"},
+  {"id":"sn003","category":"semantic_no_accent","question":"cac truong hop dang ky bien phap bao dam","expected_relevant":true,"expected_law_id":"security_registration_decree_99_2022","expected_article":"4"},
+  {"id":"sn004","category":"semantic_no_accent","question":"lai suat hop dong vay tai san theo bo luat dan su 2015","expected_relevant":true,"expected_law_id":"interest_penalty_resolution_01_2019","expected_article":"5"},
+  {"id":"sn005","category":"semantic_no_accent","question":"boi thuong thiet hai do nguon nguy hiem cao do","expected_relevant":true,"expected_law_id":"tort_compensation_resolution_02_2022","expected_article":"12"},
+  {"id":"sn006","category":"semantic_no_accent","question":"lai suat trong ho co lai","expected_relevant":true,"expected_law_id":"hui_decree_19_2019","expected_article":"21"},
+  {"id":"sn007","category":"semantic_no_accent","question":"quyen khoi kien tranh chap tai san chung cua dong ho","expected_relevant":true,"expected_law_id":"clan_property_resolution_01_2020","expected_article":"3"},
+  {"id":"ex001","category":"exact_reference","question":"Điều 117 Bộ luật Dân sự 2015 quy định gì?","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"ex002","category":"exact_reference","question":"Điều 7 Nghị định 21/2021/NĐ-CP quy định gì?","expected_relevant":true,"expected_law_id":"secured_obligations_decree_21_2021","expected_article":"7"},
+  {"id":"ex003","category":"exact_reference","question":"Điều 4 Nghị định 99/2022/NĐ-CP quy định gì?","expected_relevant":true,"expected_law_id":"security_registration_decree_99_2022","expected_article":"4"},
+  {"id":"ex004","category":"exact_reference","question":"Điều 5 Nghị quyết 01/2019/NQ-HĐTP quy định gì?","expected_relevant":true,"expected_law_id":"interest_penalty_resolution_01_2019","expected_article":"5"},
+  {"id":"ex005","category":"exact_reference","question":"Điều 12 Nghị quyết 02/2022/NQ-HĐTP quy định gì?","expected_relevant":true,"expected_law_id":"tort_compensation_resolution_02_2022","expected_article":"12"},
+  {"id":"ex006","category":"exact_reference","question":"Điều 21 Nghị định 19/2019/NĐ-CP quy định gì?","expected_relevant":true,"expected_law_id":"hui_decree_19_2019","expected_article":"21"},
+  {"id":"ex007","category":"exact_reference","question":"Điều 3 Nghị quyết 01/2020/NQ-HĐTP quy định gì?","expected_relevant":true,"expected_law_id":"clan_property_resolution_01_2020","expected_article":"3"},
+  {"id":"ex008","category":"exact_reference","question":"Điều 192 Bộ luật Tố tụng dân sự 2015 quy định gì?","expected_relevant":true,"expected_law_id":"civil_procedure_code_2015","expected_article":"192"},
+  {"id":"ex009","category":"exact_reference","question":"Điều 122 Bộ luật Dân sự 2005 quy định gì?","expected_relevant":true,"expected_law_id":"civil_code_2005","expected_article":"122"},
+  {"id":"ex010","category":"exact_reference","question":"Năm 2010 Điều 122 Bộ luật Dân sự quy định gì?","expected_relevant":true,"expected_law_id":"civil_code_2005","expected_article":"122"},
+  {"id":"rg001","category":"scope_regression","question":"Hợp đồng thuê tài sản là gì?","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"472"},
+  {"id":"rg002","category":"scope_regression","question":"hop dong thue tai san la gi","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"472"},
+  {"id":"ood001","category":"out_of_domain","question":"thuế thu nhập cá nhân khi bán nhà đất là bao nhiêu","expected_relevant":false},
+  {"id":"ood002","category":"out_of_domain","question":"mã số thuế cá nhân đăng ký như thế nào","expected_relevant":false},
+  {"id":"ood003","category":"out_of_domain","question":"người lao động được nghỉ phép bao nhiêu ngày","expected_relevant":false},
+  {"id":"ood004","category":"out_of_domain","question":"vượt đèn đỏ bị phạt bao nhiêu tiền","expected_relevant":false},
+  {"id":"ood005","category":"out_of_domain","question":"tội trộm cắp tài sản bị phạt bao nhiêu năm tù","expected_relevant":false},
+  {"id":"ood006","category":"out_of_domain","question":"phí công chứng hợp đồng mua bán nhà đất là bao nhiêu","expected_relevant":false},
+  {"id":"ood007","category":"out_of_domain","question":"kết hôn cần điều kiện gì","expected_relevant":false},
+  {"id":"ood008","category":"out_of_domain","question":"bảo hiểm xã hội đóng bao nhiêu phần trăm","expected_relevant":false},
 
-  {
-    "id": "sn001",
-    "category": "semantic_no_accent",
-    "question": "giao dich dan su co hieu luc khi nao",
-    "expected_relevant": true,
-    "expected_law_id": "civil_code_2015",
-    "expected_article": "117"
-  },
-  {
-    "id": "sn002",
-    "category": "semantic_no_accent",
-    "question": "quyen truy doi tai san bao dam",
-    "expected_relevant": true,
-    "expected_law_id": "secured_obligations_decree_21_2021",
-    "expected_article": "7"
-  },
-  {
-    "id": "sn003",
-    "category": "semantic_no_accent",
-    "question": "cac truong hop dang ky bien phap bao dam",
-    "expected_relevant": true,
-    "expected_law_id": "security_registration_decree_99_2022",
-    "expected_article": "4"
-  },
-  {
-    "id": "sn004",
-    "category": "semantic_no_accent",
-    "question": "lai suat hop dong vay tai san theo bo luat dan su 2015",
-    "expected_relevant": true,
-    "expected_law_id": "interest_penalty_resolution_01_2019",
-    "expected_article": "5"
-  },
-  {
-    "id": "sn005",
-    "category": "semantic_no_accent",
-    "question": "boi thuong thiet hai do nguon nguy hiem cao do",
-    "expected_relevant": true,
-    "expected_law_id": "tort_compensation_resolution_02_2022",
-    "expected_article": "12"
-  },
-  {
-    "id": "sn006",
-    "category": "semantic_no_accent",
-    "question": "lai suat trong ho co lai",
-    "expected_relevant": true,
-    "expected_law_id": "hui_decree_19_2019",
-    "expected_article": "21"
-  },
-  {
-    "id": "sn007",
-    "category": "semantic_no_accent",
-    "question": "quyen khoi kien tranh chap tai san chung cua dong ho",
-    "expected_relevant": true,
-    "expected_law_id": "clan_property_resolution_01_2020",
-    "expected_article": "3"
-  },
+  {"id":"sa008","category":"semantic_accent","question":"Khi nào một giao dịch dân sự được coi là có hiệu lực?","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"sa009","category":"semantic_accent","question":"Những điều kiện nào phải đáp ứng để giao dịch dân sự có giá trị pháp lý?","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"sa010","category":"semantic_accent","question":"Muốn giao dịch dân sự có hiệu lực thì chủ thể và nội dung phải đáp ứng điều kiện gì?","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"sa011","category":"semantic_accent","question":"Bên nhận bảo đảm có quyền truy đòi tài sản bảo đảm trong trường hợp nào?","expected_relevant":true,"expected_law_id":"secured_obligations_decree_21_2021","expected_article":"7"},
+  {"id":"sa012","category":"semantic_accent","question":"Quy định về quyền truy đòi đối với tài sản bảo đảm nằm ở đâu?","expected_relevant":true,"expected_law_id":"secured_obligations_decree_21_2021","expected_article":"7"},
+  {"id":"sa013","category":"semantic_accent","question":"Trường hợp nào phải thực hiện đăng ký biện pháp bảo đảm?","expected_relevant":true,"expected_law_id":"security_registration_decree_99_2022","expected_article":"4"},
+  {"id":"sa014","category":"semantic_accent","question":"Pháp luật quy định những trường hợp đăng ký biện pháp bảo đảm nào?","expected_relevant":true,"expected_law_id":"security_registration_decree_99_2022","expected_article":"4"},
+  {"id":"sa015","category":"semantic_accent","question":"Lãi suất trong hợp đồng vay tài sản được xác định theo quy định nào?","expected_relevant":true,"expected_law_id":"interest_penalty_resolution_01_2019","expected_article":"5"},
+  {"id":"sa016","category":"semantic_accent","question":"Khi tranh chấp hợp đồng vay có thỏa thuận về lãi thì xác định lãi suất ra sao?","expected_relevant":true,"expected_law_id":"interest_penalty_resolution_01_2019","expected_article":"5"},
+  {"id":"sa017","category":"semantic_accent","question":"Ai phải bồi thường khi thiệt hại phát sinh từ nguồn nguy hiểm cao độ?","expected_relevant":true,"expected_law_id":"tort_compensation_resolution_02_2022","expected_article":"12"},
+  {"id":"sa018","category":"semantic_accent","question":"Trách nhiệm bồi thường thiệt hại do nguồn nguy hiểm cao độ được xác định thế nào?","expected_relevant":true,"expected_law_id":"tort_compensation_resolution_02_2022","expected_article":"12"},
+  {"id":"sa019","category":"semantic_accent","question":"Lãi suất đối với họ có lãi được pháp luật quy định ra sao?","expected_relevant":true,"expected_law_id":"hui_decree_19_2019","expected_article":"21"},
+  {"id":"sa020","category":"semantic_accent","question":"Quy định về mức lãi suất trong họ có lãi là gì?","expected_relevant":true,"expected_law_id":"hui_decree_19_2019","expected_article":"21"},
+  {"id":"sa021","category":"semantic_accent","question":"Thành viên dòng họ có thể khởi kiện tranh chấp tài sản chung không?","expected_relevant":true,"expected_law_id":"clan_property_resolution_01_2020","expected_article":"3"},
+  {"id":"sa022","category":"semantic_accent","question":"Quyền khởi kiện tranh chấp tài sản chung của dòng họ được quy định thế nào?","expected_relevant":true,"expected_law_id":"clan_property_resolution_01_2020","expected_article":"3"},
+  {"id":"sa023","category":"semantic_accent","question":"Hợp đồng thuê tài sản được hiểu và quy định như thế nào?","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"472"},
+  {"id":"sn008","category":"semantic_no_accent","question":"khi nao giao dich dan su duoc coi la co hieu luc","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"sn009","category":"semantic_no_accent","question":"dieu kien nao de giao dich dan su co gia tri phap ly","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"sn010","category":"semantic_no_accent","question":"ben nhan bao dam co quyen truy doi tai san bao dam khi nao","expected_relevant":true,"expected_law_id":"secured_obligations_decree_21_2021","expected_article":"7"},
+  {"id":"sn011","category":"semantic_no_accent","question":"truong hop nao phai dang ky bien phap bao dam","expected_relevant":true,"expected_law_id":"security_registration_decree_99_2022","expected_article":"4"},
+  {"id":"sn012","category":"semantic_no_accent","question":"lai suat trong hop dong vay tai san duoc xac dinh nhu the nao","expected_relevant":true,"expected_law_id":"interest_penalty_resolution_01_2019","expected_article":"5"},
+  {"id":"sn013","category":"semantic_no_accent","question":"ai phai boi thuong khi thiet hai do nguon nguy hiem cao do","expected_relevant":true,"expected_law_id":"tort_compensation_resolution_02_2022","expected_article":"12"},
+  {"id":"sn014","category":"semantic_no_accent","question":"lai suat doi voi ho co lai quy dinh ra sao","expected_relevant":true,"expected_law_id":"hui_decree_19_2019","expected_article":"21"},
+  {"id":"sn015","category":"semantic_no_accent","question":"thanh vien dong ho co the khoi kien tranh chap tai san chung khong","expected_relevant":true,"expected_law_id":"clan_property_resolution_01_2020","expected_article":"3"},
+  {"id":"sn016","category":"semantic_no_accent","question":"hop dong thue tai san duoc quy dinh nhu the nao","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"472"},
+  {"id":"ex011","category":"exact_reference","question":"Cho biết nội dung Điều 117 của Bộ luật Dân sự năm 2015.","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"117"},
+  {"id":"ex012","category":"exact_reference","question":"Theo Điều 7 Nghị định 21/2021/NĐ-CP, quyền truy đòi tài sản bảo đảm được quy định thế nào?","expected_relevant":true,"expected_law_id":"secured_obligations_decree_21_2021","expected_article":"7"},
+  {"id":"ex013","category":"exact_reference","question":"Nội dung Điều 4 Nghị định 99/2022/NĐ-CP là gì?","expected_relevant":true,"expected_law_id":"security_registration_decree_99_2022","expected_article":"4"},
+  {"id":"ex014","category":"exact_reference","question":"Theo Điều 5 Nghị quyết 01/2019/NQ-HĐTP, lãi suất được xác định thế nào?","expected_relevant":true,"expected_law_id":"interest_penalty_resolution_01_2019","expected_article":"5"},
+  {"id":"ex015","category":"exact_reference","question":"Điều 12 Nghị quyết 02/2022/NQ-HĐTP nói về vấn đề gì?","expected_relevant":true,"expected_law_id":"tort_compensation_resolution_02_2022","expected_article":"12"},
+  {"id":"ex016","category":"exact_reference","question":"Hãy tra Điều 21 Nghị định 19/2019/NĐ-CP.","expected_relevant":true,"expected_law_id":"hui_decree_19_2019","expected_article":"21"},
+  {"id":"ex017","category":"exact_reference","question":"Điều 3 Nghị quyết 01/2020/NQ-HĐTP quy định quyền gì của thành viên dòng họ?","expected_relevant":true,"expected_law_id":"clan_property_resolution_01_2020","expected_article":"3"},
+  {"id":"ex018","category":"exact_reference","question":"Tra cứu Điều 472 Bộ luật Dân sự 2015 về hợp đồng thuê tài sản.","expected_relevant":true,"expected_law_id":"civil_code_2015","expected_article":"472"},
 
-  {
-    "id": "ex001",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 117 B\u1ed9 lu\u1eadt D\u00e2n s\u1ef1 2015 quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "civil_code_2015",
-    "expected_article": "117"
-  },
-  {
-    "id": "ex002",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 7 Ngh\u1ecb \u0111\u1ecbnh 21/2021/N\u0110-CP quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "secured_obligations_decree_21_2021",
-    "expected_article": "7"
-  },
-  {
-    "id": "ex003",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 4 Ngh\u1ecb \u0111\u1ecbnh 99/2022/N\u0110-CP quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "security_registration_decree_99_2022",
-    "expected_article": "4"
-  },
-  {
-    "id": "ex004",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 5 Ngh\u1ecb quy\u1ebft 01/2019/NQ-H\u0110TP quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "interest_penalty_resolution_01_2019",
-    "expected_article": "5"
-  },
-  {
-    "id": "ex005",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 12 Ngh\u1ecb quy\u1ebft 02/2022/NQ-H\u0110TP quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "tort_compensation_resolution_02_2022",
-    "expected_article": "12"
-  },
-  {
-    "id": "ex006",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 21 Ngh\u1ecb \u0111\u1ecbnh 19/2019/N\u0110-CP quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "hui_decree_19_2019",
-    "expected_article": "21"
-  },
-  {
-    "id": "ex007",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 3 Ngh\u1ecb quy\u1ebft 01/2020/NQ-H\u0110TP quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "clan_property_resolution_01_2020",
-    "expected_article": "3"
-  },
-  {
-    "id": "ex008",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 192 B\u1ed9 lu\u1eadt T\u1ed1 t\u1ee5ng d\u00e2n s\u1ef1 2015 quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "civil_procedure_code_2015",
-    "expected_article": "192"
-  },
-  {
-    "id": "ex009",
-    "category": "exact_reference",
-    "question": "\u0110i\u1ec1u 122 B\u1ed9 lu\u1eadt D\u00e2n s\u1ef1 2005 quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "civil_code_2005",
-    "expected_article": "122"
-  },
-  {
-    "id": "ex010",
-    "category": "exact_reference",
-    "question": "N\u0103m 2010 \u0110i\u1ec1u 122 B\u1ed9 lu\u1eadt D\u00e2n s\u1ef1 quy \u0111\u1ecbnh g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "civil_code_2005",
-    "expected_article": "122"
-  },
-
-  {
-    "id": "rg001",
-    "category": "scope_regression",
-    "question": "H\u1ee3p \u0111\u1ed3ng thu\u00ea t\u00e0i s\u1ea3n l\u00e0 g\u00ec?",
-    "expected_relevant": true,
-    "expected_law_id": "civil_code_2015",
-    "expected_article": "472"
-  },
-  {
-    "id": "rg002",
-    "category": "scope_regression",
-    "question": "hop dong thue tai san la gi",
-    "expected_relevant": true,
-    "expected_law_id": "civil_code_2015",
-    "expected_article": "472"
-  },
-
-  {
-    "id": "ood001",
-    "category": "out_of_domain",
-    "question": "thu\u1ebf thu nh\u1eadp c\u00e1 nh\u00e2n khi b\u00e1n nh\u00e0 \u0111\u1ea5t l\u00e0 bao nhi\u00eau",
-    "expected_relevant": false
-  },
-  {
-    "id": "ood002",
-    "category": "out_of_domain",
-    "question": "m\u00e3 s\u1ed1 thu\u1ebf c\u00e1 nh\u00e2n \u0111\u0103ng k\u00fd nh\u01b0 th\u1ebf n\u00e0o",
-    "expected_relevant": false
-  },
-  {
-    "id": "ood003",
-    "category": "out_of_domain",
-    "question": "ng\u01b0\u1eddi lao \u0111\u1ed9ng \u0111\u01b0\u1ee3c ngh\u1ec9 ph\u00e9p bao nhi\u00eau ng\u00e0y",
-    "expected_relevant": false
-  },
-  {
-    "id": "ood004",
-    "category": "out_of_domain",
-    "question": "v\u01b0\u1ee3t \u0111\u00e8n \u0111\u1ecf b\u1ecb ph\u1ea1t bao nhi\u00eau ti\u1ec1n",
-    "expected_relevant": false
-  },
-  {
-    "id": "ood005",
-    "category": "out_of_domain",
-    "question": "t\u1ed9i tr\u1ed9m c\u1eafp t\u00e0i s\u1ea3n b\u1ecb ph\u1ea1t bao nhi\u00eau n\u0103m t\u00f9",
-    "expected_relevant": false
-  },
-  {
-    "id": "ood006",
-    "category": "out_of_domain",
-    "question": "ph\u00ed c\u00f4ng ch\u1ee9ng h\u1ee3p \u0111\u1ed3ng mua b\u00e1n nh\u00e0 \u0111\u1ea5t l\u00e0 bao nhi\u00eau",
-    "expected_relevant": false
-  },
-  {
-    "id": "ood007",
-    "category": "out_of_domain",
-    "question": "k\u1ebft h\u00f4n c\u1ea7n \u0111i\u1ec1u ki\u1ec7n g\u00ec",
-    "expected_relevant": false
-  },
-  {
-    "id": "ood008",
-    "category": "out_of_domain",
-    "question": "b\u1ea3o hi\u1ec3m x\u00e3 h\u1ed9i \u0111\u00f3ng bao nhi\u00eau ph\u1ea7n tr\u0103m",
-    "expected_relevant": false
-  }
+  {"id":"ood009","category":"out_of_domain","question":"giá vàng hôm nay bao nhiêu","expected_relevant":false},
+  {"id":"ood010","category":"out_of_domain","question":"dự báo thời tiết thành phố hồ chí minh ngày mai","expected_relevant":false},
+  {"id":"ood011","category":"out_of_domain","question":"cách viết chương trình python đọc file csv","expected_relevant":false},
+  {"id":"ood012","category":"out_of_domain","question":"cách huấn luyện mô hình machine learning","expected_relevant":false},
+  {"id":"ood013","category":"out_of_domain","question":"điểm chuẩn đại học năm nay là bao nhiêu","expected_relevant":false},
+  {"id":"ood014","category":"out_of_domain","question":"cách sửa máy lạnh không lạnh","expected_relevant":false},
+  {"id":"ood015","category":"out_of_domain","question":"đội bóng nào vô địch giải bóng đá năm nay","expected_relevant":false},
+  {"id":"ood016","category":"out_of_domain","question":"cách nấu phở bò truyền thống","expected_relevant":false},
+  {"id":"ood017","category":"out_of_domain","question":"lịch thi đấu bóng đá hôm nay","expected_relevant":false},
+  {"id":"ood018","category":"out_of_domain","question":"cách cài đặt docker trên windows","expected_relevant":false},
+  {"id":"ood019","category":"out_of_domain","question":"mua điện thoại nào tốt dưới 10 triệu","expected_relevant":false},
+  {"id":"ood020","category":"out_of_domain","question":"cách học tiếng anh giao tiếp hiệu quả","expected_relevant":false},
+  {"id":"ood021","category":"out_of_domain","question":"công thức tính đạo hàm của hàm số","expected_relevant":false},
+  {"id":"ood022","category":"out_of_domain","question":"cách làm bài tập mạng nơ ron nhân tạo","expected_relevant":false},
+  {"id":"ood023","category":"out_of_domain","question":"giá xăng hôm nay","expected_relevant":false},
+  {"id":"ood024","category":"out_of_domain","question":"cách chăm sóc mèo bị rụng lông","expected_relevant":false}
 ]
