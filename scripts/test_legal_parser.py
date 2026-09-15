@@ -22,60 +22,40 @@ def main() -> None:
         DATA_DIR
         / "raw"
         / "current"
-        / "civil"
-        / "91_2015_QH13_civil_code_2015.docx"
+        / "civil_guidance"
+        / "21_2021_ND_CP_secured_obligations.docx"
     )
 
     output_path = (
         DATA_DIR
         / "parsed"
-        / "civil_code_2015.json"
+        / "secured_obligations_decree_21_2021.json"
     )
+
+    if not source_path.exists():
+        print(f"Không tìm thấy file: {source_path}")
+        sys.exit(1)
 
     parser = LegalDocxParser()
 
     parsed_document = parser.parse(
         file_path=source_path,
-        law_id="civil_code_2015",
-        document_title="Bộ luật Dân sự 2015",
+        law_id="secured_obligations_decree_21_2021",
+        document_title=(
+            "Nghị định 21/2021/NĐ-CP quy định thi hành "
+            "Bộ luật Dân sự về bảo đảm thực hiện nghĩa vụ"
+        ),
     )
 
     tree = parsed_document["tree"]
 
-    parts = parser.find_nodes(
-        tree,
-        "PART",
-    )
-
-    chapters = parser.find_nodes(
-        tree,
-        "CHAPTER",
-    )
-
-    sections = parser.find_nodes(
-        tree,
-        "SECTION",
-    )
-
-    subsections = parser.find_nodes(
-        tree,
-        "SUBSECTION",
-    )
-
-    articles = parser.find_nodes(
-        tree,
-        "ARTICLE",
-    )
-
-    clauses = parser.find_nodes(
-        tree,
-        "CLAUSE",
-    )
-
-    points = parser.find_nodes(
-        tree,
-        "POINT",
-    )
+    parts = parser.find_nodes(tree, "PART")
+    chapters = parser.find_nodes(tree, "CHAPTER")
+    sections = parser.find_nodes(tree, "SECTION")
+    subsections = parser.find_nodes(tree, "SUBSECTION")
+    articles = parser.find_nodes(tree, "ARTICLE")
+    clauses = parser.find_nodes(tree, "CLAUSE")
+    points = parser.find_nodes(tree, "POINT")
 
     print("=" * 70)
     print("KIỂM TRA LEGAL PARSER")
@@ -89,46 +69,30 @@ def main() -> None:
     print(f"Số Khoản: {len(clauses)}")
     print(f"Số Điểm: {len(points)}")
 
-    article_117 = parser.find_article(
-        tree,
-        "117",
-    )
+    article_1 = parser.find_article(tree, "1")
 
     print("\n" + "=" * 70)
-    print("KIỂM TRA ĐIỀU 117")
+    print("KIỂM TRA ĐIỀU 1")
     print("=" * 70)
 
-    if article_117 is None:
-        print("Không tìm thấy Điều 117.")
+    if article_1 is None:
+        print("Không tìm thấy Điều 1.")
         sys.exit(1)
 
-    print(
-        f"Node ID: {article_117['node_id']}"
-    )
+    print(f"Node ID: {article_1['node_id']}")
+    print(f"Tiêu đề: {article_1['title']}")
+    print(f"Paragraph index: {article_1['paragraph_index']}")
 
-    print(
-        f"Tiêu đề: {article_117['title']}"
-    )
-
-    print(
-        f"Paragraph index: "
-        f"{article_117['paragraph_index']}"
-    )
-
-    clauses_117 = [
+    clauses_1 = [
         child
-        for child in article_117["children"]
+        for child in article_1["children"]
         if child["node_type"] == "CLAUSE"
     ]
 
-    print(
-        f"Số khoản: {len(clauses_117)}"
-    )
+    print(f"Số khoản: {len(clauses_1)}")
 
-    for clause in clauses_117:
-        print(
-            f"\nKhoản {clause['number']}:"
-        )
+    for clause in clauses_1:
+        print(f"\nKhoản {clause['number']}:")
 
         for paragraph in clause["paragraphs"]:
             print(f"  {paragraph}")
@@ -152,16 +116,7 @@ def main() -> None:
 
     print("\n" + "=" * 70)
     print(f"Đã lưu JSON tại: {output_path}")
-
-    if len(articles) != 689:
-        print(
-            "[WARNING] Số Điều không bằng 689. "
-            "Cần kiểm tra lại parser."
-        )
-    else:
-        print(
-            "Đã nhận diện đủ 689 Điều."
-        )
+    print("Parser test hoàn tất.")
 
 
 if __name__ == "__main__":
