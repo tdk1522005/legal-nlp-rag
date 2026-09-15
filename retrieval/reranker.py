@@ -5,7 +5,7 @@ from typing import Any
 from sentence_transformers import CrossEncoder
 
 
-DEFAULT_RERANKER_MODEL = "AITeamVN/Vietnamese_Reranker"
+DEFAULT_RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 
 
 class VietnameseReranker:
