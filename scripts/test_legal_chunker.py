@@ -6,10 +6,7 @@ from pathlib import Path
 RAG_MODEL_DIR = Path(__file__).resolve().parents[1]
 
 if str(RAG_MODEL_DIR) not in sys.path:
-    sys.path.insert(
-        0,
-        str(RAG_MODEL_DIR),
-    )
+    sys.path.insert(0, str(RAG_MODEL_DIR))
 
 
 from preprocess.legal_chunker import LegalChunker
@@ -45,7 +42,7 @@ def main() -> None:
     parsed_path = (
         DATA_DIR
         / "parsed"
-        / "civil_code_2015.json"
+        / "secured_obligations_decree_21_2021.json"
     )
 
     laws_path = (
@@ -57,7 +54,7 @@ def main() -> None:
     output_path = (
         DATA_DIR
         / "chunks"
-        / "civil_code_2015.jsonl"
+        / "secured_obligations_decree_21_2021.jsonl"
     )
 
     if not parsed_path.exists():
@@ -77,7 +74,7 @@ def main() -> None:
 
     law_metadata = find_law_metadata(
         laws_data=laws_data,
-        law_id="civil_code_2015",
+        law_id="secured_obligations_decree_21_2021",
     )
 
     chunker = LegalChunker(
@@ -127,25 +124,25 @@ def main() -> None:
     )
 
     # =====================================================
-    # KIỂM TRA ĐIỀU 117
+    # KIỂM TRA ĐIỀU 1
     # =====================================================
 
-    article_117_chunks = [
+    article_1_chunks = [
         chunk
         for chunk in chunks
-        if chunk.get("article_number") == "117"
+        if chunk.get("article_number") == "1"
     ]
 
     print("\n" + "=" * 75)
-    print("CHUNK CỦA ĐIỀU 117")
+    print("CHUNK CỦA ĐIỀU 1")
     print("=" * 75)
 
     print(
-        f"Số chunk Điều 117: "
-        f"{len(article_117_chunks)}"
+        f"Số chunk Điều 1: "
+        f"{len(article_1_chunks)}"
     )
 
-    for chunk in article_117_chunks:
+    for chunk in article_1_chunks:
         print("\n" + "-" * 75)
 
         print(
